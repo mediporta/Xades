@@ -1,0 +1,45 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <!-- The configuration and platform will be used to determine which
+         assemblies to include from solution and project documentation
+         sources -->
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{d56ce0ab-3c97-47c7-b70a-ebf09f65f71a}</ProjectGuid>
+    <SHFBSchemaVersion>1.8.0.3</SHFBSchemaVersion>
+    <!-- AssemblyName, Name, and RootNamespace are not used by SHFB but Visual
+         Studio adds them anyway -->
+    <AssemblyName>Documentation</AssemblyName>
+    <RootNamespace>Documentation</RootNamespace>
+    <Name>Documentation</Name>
+    <!-- SHFB properties -->
+    <OutputPath>.\Help\</OutputPath>
+    <HtmlHelpName>Documentation</HtmlHelpName>
+    <HelpTitle>Microsoft.Xades Library Documentation Help</HelpTitle>
+    <CopyrightText>
+    </CopyrightText>
+    <DocumentationSources>
+      <DocumentationSource sourceFile="Library\bin\Debug\Microsoft.Xades.dll" />
+<DocumentationSource sourceFile="Library\bin\Debug\XAdES.xml" /></DocumentationSources>
+    <SyntaxFilters>CSharp</SyntaxFilters>
+    <NamespaceSummaries>
+      <NamespaceSummaryItem name="(global)" isDocumented="False" />
+      <NamespaceSummaryItem name="Microsoft.Samples" isDocumented="False">The MicrosoftSamples namespace contains classes that are used to implement ASP.NET AccessManager for MOSS 2007 extension in ASP.NET/Windows SharePoint Services/Microsoft Office SharePoint Server Web server applications.</NamespaceSummaryItem>
+    </NamespaceSummaries>
+    <FeedbackEMailAddress>
+    </FeedbackEMailAddress>
+    <FeedbackEMailLinkText>
+    </FeedbackEMailLinkText>
+    <ProjectSummary>Microsoft.Xades is a set of .NET Framework classes that help developer on how to develop XAdES applications. It is provided &amp;quot%3bAS IS&amp;quot%3b.</ProjectSummary>
+    <MissingTags>Summary, Parameter, Returns, AutoDocumentCtors, TypeParameter, AutoDocumentDispose</MissingTags>
+  </PropertyGroup>
+  <!-- There are no properties for these two groups but they need to appear in
+       order for Visual Studio to perform the build. -->
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+  </PropertyGroup>
+  <!-- Import the SHFB build targets -->
+  <Import Project="$(SHFBROOT)\SandcastleHelpFileBuilder.targets" />
+</Project>

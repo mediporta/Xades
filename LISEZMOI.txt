@@ -1,0 +1,13 @@
+Lisezmoi pour le "Kit de démarrage Signature avancée XAdES pour le Framework .NET 3.5"
+-----------------------------------------------------------------------------------------------------
+
+Décompresser le fichier archive dans l'emplacement de votre choix.
+
+Vous pouvez trouver la documentation sous le dossier Documents :
+
+    Installation du Kit de démarrage Signature avancée XAdESXAdES.docx         -- Instructions d'installation du Kit
+
+    Guide du Kit de démarrage Signature avancée XAdES.docx                     -- Visite guidée du Kit
+ 
+    Microsoft.Xades.chm                                                        -- Documentation de la bibliothèque Microsoft.Xades.dll
+ 
