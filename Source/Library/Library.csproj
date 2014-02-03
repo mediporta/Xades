@@ -71,8 +71,8 @@
     <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
     <ConfigurationOverrideFile />
     <DefineConstants>TRACE</DefineConstants>
-    <DocumentationFile />
-    <DebugSymbols>false</DebugSymbols>
+    <DocumentationFile>bin\Release\Microsoft.Xades.XML</DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
     <FileAlignment>4096</FileAlignment>
     <NoStdLib>false</NoStdLib>
     <NoWarn />
@@ -81,7 +81,7 @@
     <RemoveIntegerChecks>false</RemoveIntegerChecks>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <WarningLevel>4</WarningLevel>
-    <DebugType>none</DebugType>
+    <DebugType>full</DebugType>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
