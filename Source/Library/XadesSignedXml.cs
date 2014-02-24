@@ -345,19 +345,6 @@ namespace Microsoft.Xades
 					this.signatureValueId = ((XmlElement)xmlNodeList[0]).Attributes["Id"].Value;
 				}
 			}
-
-			xmlNodeList = xmlElement.SelectNodes("ds:SignedInfo", xmlNamespaceManager);
-			if (xmlNodeList.Count > 0)
-			{
-				if (((XmlElement)xmlNodeList[0]).HasAttribute("Id"))
-				{
-					this.signedInfoIdBuffer = ((XmlElement)xmlNodeList[0]).Attributes["Id"].Value;
-				}
-				else
-				{
-					this.signedInfoIdBuffer = null;
-				}
-			}
 		}
 
 		/// <summary>
@@ -400,7 +387,29 @@ namespace Microsoft.Xades
             // check to see if it's a standard ID reference
             XmlElement retVal = null;
 
-            if (idValue == this.signedPropertiesIdBuffer)
+		    if (Signature != null && Signature.SignedInfo != null && Signature.SignatureValue != null)
+		    {
+		        var signature = new XmlDocument();
+		        signature.AppendChild(signature.ImportNode(Signature.GetXml(), true));
+                signature.DocumentElement.SetAttribute("xmlns:ds", SignedXml.XmlDsigNamespaceUrl);
+                retVal = base.GetIdElement(signature, idValue);
+		        if (retVal != null)
+		        {
+		            return retVal;
+		        }
+
+		        // if not, search for custom ids
+		        foreach (string idAttr in idAttrs)
+		        {
+		            retVal = signature.SelectSingleNode("//*[@" + idAttr + "=\"" + idValue + "\"]") as XmlElement;
+		            if (retVal != null)
+		            {
+		                return retVal;
+		            }
+		        }
+		    }
+
+		    if (idValue == this.signedPropertiesIdBuffer)
             {
                 retVal = base.GetIdElement(this.cachedXadesObjectDocument, idValue);
                 if (retVal != null)
@@ -608,12 +617,12 @@ namespace Microsoft.Xades
 		public virtual bool CheckXmldsigSignature()
 		{
 			bool retVal = false;
-
+            /*
             KeyInfo keyInfo = new KeyInfo();
             X509Certificate xmldsigCert = new X509Certificate(System.Text.Encoding.ASCII.GetBytes(this.KeyInfo.GetXml().InnerText));
             keyInfo.AddClause(new KeyInfoX509Data(xmldsigCert));
             this.KeyInfo = keyInfo; 
-
+            */
             retVal = this.CheckSignature();
 			if (retVal == false)
 			{
