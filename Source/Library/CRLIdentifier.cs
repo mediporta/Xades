@@ -191,27 +191,27 @@ namespace Microsoft.Xades
 			XmlElement bufferXmlElement;
 
 			creationXmlDocument = new XmlDocument();
-			retVal = creationXmlDocument.CreateElement("CRLIdentifier", XadesSignedXml.XadesNamespaceUri);
+            retVal = creationXmlDocument.CreateElement("xades", "CRLIdentifier", XadesSignedXml.XadesNamespaceUri);
 
 			retVal.SetAttribute("URI", this.uriAttribute);
 
 			if (!String.IsNullOrEmpty(this.issuer))
 			{
-				bufferXmlElement = creationXmlDocument.CreateElement("Issuer", XadesSignedXml.XadesNamespaceUri);
+                bufferXmlElement = creationXmlDocument.CreateElement("xades", "Issuer", XadesSignedXml.XadesNamespaceUri);
 				bufferXmlElement.InnerText = this.issuer;
 				retVal.AppendChild(bufferXmlElement);
 			}
 
 			if (this.issueTime != DateTime.MinValue)
 			{
-				bufferXmlElement = creationXmlDocument.CreateElement("IssueTime", XadesSignedXml.XadesNamespaceUri);
+                bufferXmlElement = creationXmlDocument.CreateElement("xades", "IssueTime", XadesSignedXml.XadesNamespaceUri);
 				bufferXmlElement.InnerText = Convert.ToString(this.issueTime.ToString("s"));
 				retVal.AppendChild(bufferXmlElement);
 			}
 
 			if (this.number != long.MinValue)
 			{
-				bufferXmlElement = creationXmlDocument.CreateElement("Number", XadesSignedXml.XadesNamespaceUri);
+                bufferXmlElement = creationXmlDocument.CreateElement("xades", "Number", XadesSignedXml.XadesNamespaceUri);
 				bufferXmlElement.InnerText = this.number.ToString();
 				retVal.AppendChild(bufferXmlElement);
 			}

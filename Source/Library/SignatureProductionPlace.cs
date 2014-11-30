@@ -193,32 +193,32 @@ namespace Microsoft.Xades
 			XmlElement bufferXmlElement;
 
 			creationXmlDocument = new XmlDocument();
-			retVal = creationXmlDocument.CreateElement("SignatureProductionPlace", XadesSignedXml.XadesNamespaceUri);
+            retVal = creationXmlDocument.CreateElement("xades", "SignatureProductionPlace", XadesSignedXml.XadesNamespaceUri);
 
 			if (!String.IsNullOrEmpty(this.city))
 			{
-				bufferXmlElement = creationXmlDocument.CreateElement("City", XadesSignedXml.XadesNamespaceUri);
+                bufferXmlElement = creationXmlDocument.CreateElement("xades", "City", XadesSignedXml.XadesNamespaceUri);
 				bufferXmlElement.InnerText = this.city;
 				retVal.AppendChild(bufferXmlElement);
 			}
 
 			if (!String.IsNullOrEmpty(this.stateOrProvince))
 			{
-				bufferXmlElement = creationXmlDocument.CreateElement("StateOrProvince", XadesSignedXml.XadesNamespaceUri);
+                bufferXmlElement = creationXmlDocument.CreateElement("xades", "StateOrProvince", XadesSignedXml.XadesNamespaceUri);
 				bufferXmlElement.InnerText = this.stateOrProvince;
 				retVal.AppendChild(bufferXmlElement);
 			}
 
 			if (!String.IsNullOrEmpty(this.postalCode))
 			{
-				bufferXmlElement = creationXmlDocument.CreateElement("PostalCode", XadesSignedXml.XadesNamespaceUri);
+                bufferXmlElement = creationXmlDocument.CreateElement("xades", "PostalCode", XadesSignedXml.XadesNamespaceUri);
 				bufferXmlElement.InnerText = this.postalCode;
 				retVal.AppendChild(bufferXmlElement);
 			}
 
 			if (this.countryName != null && this.countryName != "")
 			{
-				bufferXmlElement = creationXmlDocument.CreateElement("CountryName", XadesSignedXml.XadesNamespaceUri);
+                bufferXmlElement = creationXmlDocument.CreateElement("xades", "CountryName", XadesSignedXml.XadesNamespaceUri);
 				bufferXmlElement.InnerText = this.countryName;
 				retVal.AppendChild(bufferXmlElement);
 			}

@@ -230,7 +230,7 @@ namespace Microsoft.Xades
 			XmlElement retVal;
 
 			creationXmlDocument = new XmlDocument();
-			retVal = creationXmlDocument.CreateElement(this.tagName, XadesSignedXml.XadesNamespaceUri);
+            retVal = creationXmlDocument.CreateElement("xades", this.tagName, XadesSignedXml.XadesNamespaceUri);
 
 			if (this.hashDataInfoCollection.Count > 0)
 			{

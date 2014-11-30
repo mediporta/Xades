@@ -203,7 +203,7 @@ namespace Microsoft.Xades
 			XmlElement retVal;
 
 			creationXmlDocument = new XmlDocument();
-			retVal = creationXmlDocument.CreateElement("QualifyingProperties", XadesSignedXml.XadesNamespaceUri);
+            retVal = creationXmlDocument.CreateElement("xades", "QualifyingProperties", XadesSignedXml.XadesNamespaceUri);
             if (!String.IsNullOrEmpty(this.id))
 			{
 				retVal.SetAttribute("Id", this.id);

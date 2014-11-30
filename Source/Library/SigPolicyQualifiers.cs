@@ -152,7 +152,7 @@ namespace Microsoft.Xades
 			XmlElement retVal;
 
 			creationXmlDocument = new XmlDocument();
-			retVal = creationXmlDocument.CreateElement("SigPolicyQualifiers", XadesSignedXml.XadesNamespaceUri);
+            retVal = creationXmlDocument.CreateElement("xades", "SigPolicyQualifiers", XadesSignedXml.XadesNamespaceUri);
 
 			if (this.sigPolicyQualifierCollection.Count > 0)
 			{

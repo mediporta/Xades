@@ -123,7 +123,7 @@ namespace Microsoft.Xades
 			XmlElement retVal;
 
 			creationXmlDocument = new XmlDocument();
-			retVal = creationXmlDocument.CreateElement("SigningCertificate", XadesSignedXml.XadesNamespaceUri);
+            retVal = creationXmlDocument.CreateElement("xades", "SigningCertificate", XadesSignedXml.XadesNamespaceUri);
 
 			if (this.certCollection.Count > 0)
 			{

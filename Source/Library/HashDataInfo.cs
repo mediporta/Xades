@@ -142,7 +142,7 @@ namespace Microsoft.Xades
 			XmlElement retVal;
 
 			creationXmlDocument = new XmlDocument();
-			retVal = creationXmlDocument.CreateElement("HashDataInfo", XadesSignedXml.XadesNamespaceUri);
+            retVal = creationXmlDocument.CreateElement("xades", "HashDataInfo", XadesSignedXml.XadesNamespaceUri);
 
 			retVal.SetAttribute("uri", this.uriAttribute);
 

@@ -142,7 +142,7 @@ namespace Microsoft.Xades
 			XmlElement retVal;
 
 			creationXmlDocument = new XmlDocument();
-			retVal = creationXmlDocument.CreateElement("OCSPRef", XadesSignedXml.XadesNamespaceUri);
+            retVal = creationXmlDocument.CreateElement("xades", "OCSPRef", XadesSignedXml.XadesNamespaceUri);
 
 			if (this.ocspIdentifier != null && this.ocspIdentifier.HasChanged())
 			{

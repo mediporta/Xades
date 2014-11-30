@@ -129,7 +129,7 @@ namespace Microsoft.Xades
 			XmlElement retVal;
 
 			creationXmlDocument = new XmlDocument();
-			retVal = creationXmlDocument.CreateElement("UnsignedDataObjectProperties", XadesSignedXml.XadesNamespaceUri);
+            retVal = creationXmlDocument.CreateElement("xades", "UnsignedDataObjectProperties", XadesSignedXml.XadesNamespaceUri);
 
 			if (this.unsignedDataObjectPropertyCollection.Count > 0)
 			{

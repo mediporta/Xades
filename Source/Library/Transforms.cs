@@ -129,7 +129,7 @@ namespace Microsoft.Xades
 			XmlElement retVal;
 
 			creationXmlDocument = new XmlDocument();
-			retVal = creationXmlDocument.CreateElement("Transforms", XadesSignedXml.XadesNamespaceUri);
+            retVal = creationXmlDocument.CreateElement("xades", "Transforms", XadesSignedXml.XadesNamespaceUri);
 
 			if (this.transformCollection.Count > 0)
 			{

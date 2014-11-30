@@ -150,7 +150,7 @@ namespace Microsoft.Xades
 			XmlElement retVal;
 
 			creationXmlDocument = new XmlDocument();
-			retVal = creationXmlDocument.CreateElement("SignerRole", XadesSignedXml.XadesNamespaceUri);
+            retVal = creationXmlDocument.CreateElement("xades", "SignerRole", XadesSignedXml.XadesNamespaceUri);
 
 			if (this.claimedRoles != null && this.claimedRoles.HasChanged())
 			{

@@ -90,7 +90,7 @@ namespace Microsoft.Xades
 			XmlElement retVal;
 
 			creationXmlDocument = new XmlDocument();
-			retVal = creationXmlDocument.CreateElement("OtherCertificate", XadesSignedXml.XadesNamespaceUri);
+            retVal = creationXmlDocument.CreateElement("xades", "OtherCertificate", XadesSignedXml.XadesNamespaceUri);
 
 			if (this.anyXmlElement != null)
 			{

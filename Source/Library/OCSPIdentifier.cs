@@ -162,20 +162,20 @@ namespace Microsoft.Xades
 			XmlElement bufferXmlElement;
 
 			creationXmlDocument = new XmlDocument();
-			retVal = creationXmlDocument.CreateElement("OCSPIdentifier", XadesSignedXml.XadesNamespaceUri);
+            retVal = creationXmlDocument.CreateElement("xades", "OCSPIdentifier", XadesSignedXml.XadesNamespaceUri);
 
 			retVal.SetAttribute("URI", this.uriAttribute);
 
 			if (!String.IsNullOrEmpty(this.responderID))
 			{
-				bufferXmlElement = creationXmlDocument.CreateElement("ResponderID", XadesSignedXml.XadesNamespaceUri);
+                bufferXmlElement = creationXmlDocument.CreateElement("xades", "ResponderID", XadesSignedXml.XadesNamespaceUri);
 				bufferXmlElement.InnerText = this.responderID;
 				retVal.AppendChild(bufferXmlElement);
 			}
 
 			if (this.producedAt != DateTime.MinValue)
 			{
-				bufferXmlElement = creationXmlDocument.CreateElement("ProducedAt", XadesSignedXml.XadesNamespaceUri);
+                bufferXmlElement = creationXmlDocument.CreateElement("xades", "ProducedAt", XadesSignedXml.XadesNamespaceUri);
 				bufferXmlElement.InnerText = Convert.ToString(this.producedAt.ToString("s"));
 				retVal.AppendChild(bufferXmlElement);
 			}

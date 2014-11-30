@@ -135,9 +135,9 @@ namespace Microsoft.Xades
 			}
 
 			xmlNamespaceManager = new XmlNamespaceManager(xmlElement.OwnerDocument.NameTable);
-			xmlNamespaceManager.AddNamespace("xsd", XadesSignedXml.XadesNamespaceUri);
+            xmlNamespaceManager.AddNamespace("ds", SignedXml.XmlDsigNamespaceUrl);
 
-			xmlNodeList = xmlElement.SelectNodes("xsd:DigestMethod", xmlNamespaceManager);
+			xmlNodeList = xmlElement.SelectNodes("ds:DigestMethod", xmlNamespaceManager);
 			if (xmlNodeList.Count == 0)
 			{
 				throw new CryptographicException("DigestMethod missing");
@@ -145,7 +145,7 @@ namespace Microsoft.Xades
 			this.digestMethod = new DigestMethod();
 			this.digestMethod.LoadXml((XmlElement)xmlNodeList.Item(0));
 
-			xmlNodeList = xmlElement.SelectNodes("xsd:DigestValue", xmlNamespaceManager);
+			xmlNodeList = xmlElement.SelectNodes("ds:DigestValue", xmlNamespaceManager);
 			if (xmlNodeList.Count == 0)
 			{
 				throw new CryptographicException("DigestValue missing");
@@ -164,7 +164,7 @@ namespace Microsoft.Xades
 			XmlElement bufferXmlElement;
 
 			creationXmlDocument = new XmlDocument();
-			retVal = creationXmlDocument.CreateElement(this.tagName, XadesSignedXml.XadesNamespaceUri);
+            retVal = creationXmlDocument.CreateElement("xades", this.tagName, XadesSignedXml.XadesNamespaceUri);
 
 			if (this.digestMethod != null && this.digestMethod.HasChanged())
 			{
@@ -177,7 +177,7 @@ namespace Microsoft.Xades
 
 			if (this.digestValue != null && this.digestValue.Length > 0)
 			{
-				bufferXmlElement = creationXmlDocument.CreateElement("DigestValue", XadesSignedXml.XadesNamespaceUri);
+                bufferXmlElement = creationXmlDocument.CreateElement("ds", "DigestValue", SignedXml.XmlDsigNamespaceUrl);
 				bufferXmlElement.InnerText = Convert.ToBase64String(this.digestValue);
 				retVal.AppendChild(bufferXmlElement);
 			}

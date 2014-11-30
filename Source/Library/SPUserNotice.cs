@@ -153,16 +153,16 @@ namespace Microsoft.Xades
 			XmlElement retVal;
 
 			creationXmlDocument = new XmlDocument();
-			retVal = creationXmlDocument.CreateElement("SigPolicyQualifier", XadesSignedXml.XadesNamespaceUri);
+            retVal = creationXmlDocument.CreateElement("xades", "SigPolicyQualifier", XadesSignedXml.XadesNamespaceUri);
 
-			bufferXmlElement = creationXmlDocument.CreateElement("SPUserNotice", XadesSignedXml.XadesNamespaceUri);
+            bufferXmlElement = creationXmlDocument.CreateElement("xades", "SPUserNotice", XadesSignedXml.XadesNamespaceUri);
 			if (this.noticeRef != null && this.noticeRef.HasChanged())
 			{
 				bufferXmlElement.AppendChild(creationXmlDocument.ImportNode(this.noticeRef.GetXml(), true));
 			}
 			if (!String.IsNullOrEmpty(this.explicitText))
 			{
-				bufferXmlElement2 = creationXmlDocument.CreateElement("ExplicitText", XadesSignedXml.XadesNamespaceUri);
+                bufferXmlElement2 = creationXmlDocument.CreateElement("xades", "ExplicitText", XadesSignedXml.XadesNamespaceUri);
 				bufferXmlElement2.InnerText = this.explicitText;
 				bufferXmlElement.AppendChild(bufferXmlElement2);
 			}

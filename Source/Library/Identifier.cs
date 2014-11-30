@@ -148,7 +148,7 @@ namespace Microsoft.Xades
 			XmlElement retVal;
 
 			creationXmlDocument = new XmlDocument();
-			retVal = creationXmlDocument.CreateElement("Identifier", XadesSignedXml.XadesNamespaceUri);
+            retVal = creationXmlDocument.CreateElement("xades", "Identifier", XadesSignedXml.XadesNamespaceUri);
 
 			if (this.qualifier != KnownQualifier.Uninitalized)
 			{

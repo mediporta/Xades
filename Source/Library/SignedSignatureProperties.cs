@@ -245,13 +245,13 @@ namespace Microsoft.Xades
 			XmlElement bufferXmlElement;
 
 			creationXmlDocument = new XmlDocument();
-			retVal = creationXmlDocument.CreateElement("SignedSignatureProperties", XadesSignedXml.XadesNamespaceUri);
+            retVal = creationXmlDocument.CreateElement("xades", "SignedSignatureProperties", XadesSignedXml.XadesNamespaceUri);
 
 			if (this.signingTime == DateTime.MinValue)
 			{ //SigningTime should be available
 				this.signingTime = DateTime.Now;
 			}
-			bufferXmlElement = creationXmlDocument.CreateElement("SigningTime", XadesSignedXml.XadesNamespaceUri);
+            bufferXmlElement = creationXmlDocument.CreateElement("xades", "SigningTime", XadesSignedXml.XadesNamespaceUri);
 			bufferXmlElement.InnerText = Convert.ToString(this.signingTime.ToString("s")); //ISO 8601 format as required in http://www.w3.org/TR/xmlschema-2/#dateTime 
 			retVal.AppendChild(bufferXmlElement);
 

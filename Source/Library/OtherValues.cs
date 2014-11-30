@@ -127,7 +127,7 @@ namespace Microsoft.Xades
 			XmlElement retVal;
 
 			creationXmlDocument = new XmlDocument();
-			retVal = creationXmlDocument.CreateElement("OtherValues", XadesSignedXml.XadesNamespaceUri);
+            retVal = creationXmlDocument.CreateElement("xades", "OtherValues", XadesSignedXml.XadesNamespaceUri);
 
 			if (this.otherValueCollection.Count > 0)
 			{

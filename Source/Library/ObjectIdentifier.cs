@@ -192,7 +192,7 @@ namespace Microsoft.Xades
 			XmlElement bufferXmlElement;
 
 			creationXmlDocument = new XmlDocument();
-			retVal = creationXmlDocument.CreateElement(this.tagName, XadesSignedXml.XadesNamespaceUri);
+            retVal = creationXmlDocument.CreateElement("xades", this.tagName, XadesSignedXml.XadesNamespaceUri);
 
 			if (this.identifier != null && this.identifier.HasChanged())
 			{
@@ -205,7 +205,7 @@ namespace Microsoft.Xades
 
 			if (!String.IsNullOrEmpty(this.description))
 			{
-				bufferXmlElement = creationXmlDocument.CreateElement("Description", XadesSignedXml.XadesNamespaceUri);
+                bufferXmlElement = creationXmlDocument.CreateElement("xades", "Description", XadesSignedXml.XadesNamespaceUri);
 				bufferXmlElement.InnerText = this.description;
 				retVal.AppendChild(bufferXmlElement);
 			}

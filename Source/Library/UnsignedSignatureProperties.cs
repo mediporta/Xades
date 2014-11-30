@@ -522,7 +522,7 @@ namespace Microsoft.Xades
 			XmlElement bufferXmlElement;
 
 			creationXmlDocument = new XmlDocument();
-			retVal = creationXmlDocument.CreateElement("UnsignedSignatureProperties", XadesSignedXml.XadesNamespaceUri);
+            retVal = creationXmlDocument.CreateElement("xades", "UnsignedSignatureProperties", XadesSignedXml.XadesNamespaceUri);
 
 			if (this.counterSignatureCollection.Count > 0)
 			{

@@ -141,12 +141,12 @@ namespace Microsoft.Xades
 		/// <summary>
 		/// The XAdES XML namespace URI
 		/// </summary>
-		public const string XadesNamespaceUri = "http://uri.etsi.org/01903/v1.1.1#";
+		public const string XadesNamespaceUri = "http://uri.etsi.org/01903/v1.3.2#";
 
 		/// <summary>
 		/// Mandated type name for the Uri reference to the SignedProperties element
 		/// </summary>
-		public const string SignedPropertiesType = "http://uri.etsi.org/01903/v1.1.1#SignedProperties";
+		public const string SignedPropertiesType = "http://uri.etsi.org/01903/v1.3.2#SignedProperties";
 		#endregion
 
 		#region Private variables
@@ -411,7 +411,11 @@ namespace Microsoft.Xades
 
 		    if (idValue == this.signedPropertiesIdBuffer)
             {
-                retVal = base.GetIdElement(this.cachedXadesObjectDocument, idValue);
+                var xmlDocumentCloned = new XmlDocument();
+                xmlDocumentCloned.LoadXml(xmlDocument.OuterXml);
+                xmlDocumentCloned.DocumentElement.AppendChild(xmlDocumentCloned.ImportNode(cachedXadesObjectDocument.DocumentElement, true));
+
+                retVal = base.GetIdElement(xmlDocumentCloned, idValue);
                 if (retVal != null)
                 {
                     return retVal;

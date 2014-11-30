@@ -132,7 +132,7 @@ namespace Microsoft.Xades
 			XmlElement retVal;
 
 			creationXmlDocument = new XmlDocument();
-			retVal = creationXmlDocument.CreateElement("ClaimedRoles", XadesSignedXml.XadesNamespaceUri);
+            retVal = creationXmlDocument.CreateElement("xades", "ClaimedRoles", XadesSignedXml.XadesNamespaceUri);
 
 			if (this.claimedRoleCollection.Count > 0)
 			{

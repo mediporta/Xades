@@ -140,13 +140,13 @@ namespace Microsoft.Xades
 			XmlElement retVal;
 
 			creationXmlDocument = new XmlDocument();
-			retVal = creationXmlDocument.CreateElement("NoticeRef", XadesSignedXml.XadesNamespaceUri);
+            retVal = creationXmlDocument.CreateElement("xades", "NoticeRef", XadesSignedXml.XadesNamespaceUri);
 
 			if (this.organization == null)
 			{
 				throw new CryptographicException("Organization can't be null");
 			}
-			bufferXmlElement = creationXmlDocument.CreateElement("Organization", XadesSignedXml.XadesNamespaceUri);
+            bufferXmlElement = creationXmlDocument.CreateElement("xades", "Organization", XadesSignedXml.XadesNamespaceUri);
 			bufferXmlElement.InnerText = this.organization;
 			retVal.AppendChild(bufferXmlElement);
 

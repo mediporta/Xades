@@ -119,9 +119,9 @@ namespace Microsoft.Xades
 			XmlElement retVal;
 
 			creationXmlDocument = new XmlDocument();
-			retVal = creationXmlDocument.CreateElement("SigPolicyQualifier", XadesSignedXml.XadesNamespaceUri);
+            retVal = creationXmlDocument.CreateElement("xades", "SigPolicyQualifier", XadesSignedXml.XadesNamespaceUri);
 
-			bufferXmlElement = creationXmlDocument.CreateElement("SPURI", XadesSignedXml.XadesNamespaceUri);
+            bufferXmlElement = creationXmlDocument.CreateElement("xades", "SPURI", XadesSignedXml.XadesNamespaceUri);
 			bufferXmlElement.InnerText = this.uri;
 			retVal.AppendChild(creationXmlDocument.ImportNode(bufferXmlElement, true));
 

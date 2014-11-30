@@ -144,7 +144,7 @@ namespace Microsoft.Xades
 			XmlElement retVal;
 
 			creationXmlDocument = new XmlDocument();
-			retVal = creationXmlDocument.CreateElement("Cert", XadesSignedXml.XadesNamespaceUri);
+            retVal = creationXmlDocument.CreateElement("xades", "Cert", XadesSignedXml.XadesNamespaceUri);
 
 			if (this.certDigest != null && this.certDigest.HasChanged())
 			{

@@ -89,7 +89,7 @@ namespace Microsoft.Xades
 			XmlElement retVal;
 
 			creationXmlDocument = new XmlDocument();
-			retVal = creationXmlDocument.CreateElement("XMLTimeStamp", XadesSignedXml.XadesNamespaceUri);
+			retVal = creationXmlDocument.CreateElement("xades", "XMLTimeStamp", XadesSignedXml.XadesNamespaceUri);
 
 			if (this.anyXmlElement != null)
 			{

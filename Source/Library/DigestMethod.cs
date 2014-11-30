@@ -95,7 +95,7 @@ namespace Microsoft.Xades
 			XmlElement retVal;
 
 			creationXmlDocument = new XmlDocument();
-			retVal = creationXmlDocument.CreateElement("DigestMethod", XadesSignedXml.XadesNamespaceUri);
+            retVal = creationXmlDocument.CreateElement("ds", "DigestMethod", SignedXml.XmlDsigNamespaceUrl);
 
 			retVal.SetAttribute("Algorithm", this.algorithm);
 

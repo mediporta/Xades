@@ -193,7 +193,7 @@ namespace Microsoft.Xades
 			XmlElement retVal;
 
 			creationXmlDocument = new XmlDocument();
-			retVal = creationXmlDocument.CreateElement("CompleteRevocationRefs", XadesSignedXml.XadesNamespaceUri);
+            retVal = creationXmlDocument.CreateElement("xades", "CompleteRevocationRefs", XadesSignedXml.XadesNamespaceUri);
 			if (!String.IsNullOrEmpty(this.id))
 			{
 				retVal.SetAttribute("Id", this.id);
