@@ -387,28 +387,7 @@ namespace Microsoft.Xades
             // check to see if it's a standard ID reference
             XmlElement retVal = null;
 
-		    if (Signature != null && Signature.SignedInfo != null && Signature.SignatureValue != null)
-		    {
-		        var signature = new XmlDocument();
-		        signature.AppendChild(signature.ImportNode(Signature.GetXml(), true));
-                signature.DocumentElement.SetAttribute("xmlns:ds", SignedXml.XmlDsigNamespaceUrl);
-                retVal = base.GetIdElement(signature, idValue);
-		        if (retVal != null)
-		        {
-		            return retVal;
-		        }
-
-		        // if not, search for custom ids
-		        foreach (string idAttr in idAttrs)
-		        {
-		            retVal = signature.SelectSingleNode("//*[@" + idAttr + "=\"" + idValue + "\"]") as XmlElement;
-		            if (retVal != null)
-		            {
-		                return retVal;
-		            }
-		        }
-		    }
-
+		    
 		    if (idValue == this.signedPropertiesIdBuffer)
             {
                 var xmlDocumentCloned = new XmlDocument();
@@ -452,6 +431,29 @@ namespace Microsoft.Xades
                     }
                 }
             }
+
+            if (Signature != null && Signature.SignedInfo != null && Signature.SignatureValue != null)
+            {
+                var signature = new XmlDocument();
+                signature.AppendChild(signature.ImportNode(Signature.GetXml(), true));
+                signature.DocumentElement.SetAttribute("xmlns:ds", SignedXml.XmlDsigNamespaceUrl);
+                retVal = base.GetIdElement(signature, idValue);
+                if (retVal != null)
+                {
+                    return retVal;
+                }
+
+                // if not, search for custom ids
+                foreach (string idAttr in idAttrs)
+                {
+                    retVal = signature.SelectSingleNode("//*[@" + idAttr + "=\"" + idValue + "\"]") as XmlElement;
+                    if (retVal != null)
+                    {
+                        return retVal;
+                    }
+                }
+            }
+
 
             return retVal;
         }
