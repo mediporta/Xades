@@ -458,11 +458,12 @@ namespace Microsoft.Xades
             return retVal;
         }
 
-		/// <summary>
-		/// Add a XAdES object to the signature
-		/// </summary>
-		/// <param name="xadesObject">XAdES object to add to signature</param>
-		public void AddXadesObject(XadesObject xadesObject)
+	/// <summary>
+        /// Add a XAdES object to the signature
+        /// </summary>
+        /// <param name="xadesObject">XAdES object to add to signature</param>
+        /// <param name="transform">Extra transform if needed</param>
+        public void AddXadesObject(XadesObject xadesObject, System.Security.Cryptography.Xml.Transform transform = null)
 		{
 			Reference reference;
 			DataObject dataObject;
@@ -479,7 +480,14 @@ namespace Microsoft.Xades
 				signedPropertiesIdBuffer = xadesObject.QualifyingProperties.SignedProperties.Id;
 				reference.Uri = "#" + signedPropertiesIdBuffer;
 				reference.Type = SignedPropertiesType;
-				this.AddReference(reference); //Add the XAdES object reference
+
+                // Add extra transform
+                if (transform != null)
+                {
+                    reference.AddTransform(transform);
+                }
+
+                this.AddReference(reference); //Add the XAdES object reference
 
 				this.cachedXadesObjectDocument = new XmlDocument();
 				bufferXmlElement = xadesObject.GetXml();
