@@ -1,3 +1,5 @@
 bin
 obj
 /Source/.vs/Microsoft.Xades/v15
+/.vs/Microsoft.Xades
+/packages
