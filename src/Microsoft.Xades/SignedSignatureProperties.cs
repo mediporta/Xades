@@ -30,16 +30,19 @@ namespace Microsoft.Xades
 		private SignaturePolicyIdentifier signaturePolicyIdentifier;
 		private SignatureProductionPlace signatureProductionPlace;
 		private SignerRole signerRole;
-		#endregion
+        #endregion
 
-		#region Public properties
-		/// <summary>
-		/// The signing time property specifies the time at which the signer
-		/// performed the signing process. This is a signed property that
-		/// qualifies the whole signature. An XML electronic signature aligned
-		/// with the present document MUST contain exactly one SigningTime element .
-		/// </summary>
-		public DateTime SigningTime
+        #region Public properties
+
+        public bool SignaturePolicyIdentifierSpecified { get; set; } = true;
+
+        /// <summary>
+        /// The signing time property specifies the time at which the signer
+        /// performed the signing process. This is a signed property that
+        /// qualifies the whole signature. An XML electronic signature aligned
+        /// with the present document MUST contain exactly one SigningTime element .
+        /// </summary>
+        public DateTime SigningTime
 		{
 			get
 			{
@@ -252,8 +255,9 @@ namespace Microsoft.Xades
 				this.signingTime = DateTime.Now;
 			}
             bufferXmlElement = creationXmlDocument.CreateElement("xades", "SigningTime", XadesSignedXml.XadesNamespaceUri);
-			bufferXmlElement.InnerText = Convert.ToString(this.signingTime.ToString("s")); //ISO 8601 format as required in http://www.w3.org/TR/xmlschema-2/#dateTime 
-			retVal.AppendChild(bufferXmlElement);
+			bufferXmlElement.InnerText = Convert.ToString(this.signingTime.ToString("s") + this.signingTime.ToString("zzz")); //ISO 8601 format as required in http://www.w3.org/TR/xmlschema-2/#dateTime 
+            // Added Timezone by tostring("zzz")
+            retVal.AppendChild(bufferXmlElement);
 
 			if (this.signingCertificate != null && this.signingCertificate.HasChanged())
 			{
@@ -264,14 +268,17 @@ namespace Microsoft.Xades
 				throw new CryptographicException("SigningCertificate element missing in SignedSignatureProperties");
 			}
 
-			if (this.signaturePolicyIdentifier != null && this.signaturePolicyIdentifier.HasChanged())
-			{
-				retVal.AppendChild(creationXmlDocument.ImportNode(this.signaturePolicyIdentifier.GetXml(), true));
-			}
-			else
-			{
-				throw new CryptographicException("SignaturePolicyIdentifier element missing in SignedSignatureProperties");
-			}
+            if (SignaturePolicyIdentifierSpecified)
+            {
+                if (this.signaturePolicyIdentifier != null && this.signaturePolicyIdentifier.HasChanged())
+                {
+                    retVal.AppendChild(creationXmlDocument.ImportNode(this.signaturePolicyIdentifier.GetXml(), true));
+                }
+                else
+                {
+                    throw new CryptographicException("SignaturePolicyIdentifier element missing in SignedSignatureProperties");
+                }
+            }
 
 			if (this.signatureProductionPlace != null && this.signatureProductionPlace.HasChanged())
 			{

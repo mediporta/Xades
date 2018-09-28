@@ -25,131 +25,131 @@ using System.Collections;
 
 namespace Microsoft.Xades
 {
-	/// <summary>
-	/// Types of signature standards that can be contained in XadesSignedXml class instance
-	/// </summary>
-	public enum KnownSignatureStandard
-	{
-		/// <summary>
-		/// XML Digital Signature (XMLDSIG)
-		/// </summary>
-		XmlDsig,
-		/// <summary>
-		/// XML Advanced Electronic Signature (XAdES) 
-		/// </summary>
-		Xades
-	}
+    /// <summary>
+    /// Types of signature standards that can be contained in XadesSignedXml class instance
+    /// </summary>
+    public enum KnownSignatureStandard
+    {
+        /// <summary>
+        /// XML Digital Signature (XMLDSIG)
+        /// </summary>
+        XmlDsig,
+        /// <summary>
+        /// XML Advanced Electronic Signature (XAdES) 
+        /// </summary>
+        Xades
+    }
 
-	/// <summary>
-	/// Bitmasks to indicate which checks need to be executed on the XAdES signature
-	/// </summary>
-	[FlagsAttribute]
-	public enum XadesCheckSignatureMasks : ulong
-	{
-		/// <summary>
-		/// Check the signature of the underlying XMLDSIG signature
-		/// </summary>
-		CheckXmldsigSignature = 0x01,
-		/// <summary>
-		/// Validate the XML representation of the signature against the XAdES and XMLDSIG schemas
-		/// </summary>
-		ValidateAgainstSchema = 0x02,
-		/// <summary>
-		/// Check to see if first XMLDSIG certificate has same hashvalue as first XAdES SignatureCertificate
-		/// </summary>
-		CheckSameCertificate = 0x04,
-		/// <summary>
-		/// Check if there is a HashDataInfo for each reference if there is a AllDataObjectsTimeStamp
-		/// </summary>
-		CheckAllReferencesExistInAllDataObjectsTimeStamp = 0x08,
-		/// <summary>
-		/// Check if the HashDataInfo of each IndividualDataObjectsTimeStamp points to existing Reference
-		/// </summary>
-		CheckAllHashDataInfosInIndividualDataObjectsTimeStamp = 0x10,
-		/// <summary>
-		/// Perform XAdES checks on contained counter signatures 
-		/// </summary>
-		CheckCounterSignatures = 0x20,
-		/// <summary>
-		/// Counter signatures should all contain a reference to the parent signature SignatureValue element
-		/// </summary>
-		CheckCounterSignaturesReference = 0x40,
-		/// <summary>
-		/// Check if each ObjectReference in CommitmentTypeIndication points to Reference element
-		/// </summary>
-		CheckObjectReferencesInCommitmentTypeIndication = 0x80,
-		/// <summary>
-		/// Check if at least ClaimedRoles or CertifiedRoles present in SignerRole
-		/// </summary>
-		CheckIfClaimedRolesOrCertifiedRolesPresentInSignerRole = 0x0100,
-		/// <summary>
-		/// Check if HashDataInfo of SignatureTimeStamp points to SignatureValue
-		/// </summary>
-		CheckHashDataInfoOfSignatureTimeStampPointsToSignatureValue = 0x0200,
-		/// <summary>
-		/// Check if the QualifyingProperties Target attribute points to the signature element
-		/// </summary>
-		CheckQualifyingPropertiesTarget = 0x0400,
-		/// <summary>
-		/// Check that QualifyingProperties occur in one Object, check that there is only one QualifyingProperties and that signed properties occur in one QualifyingProperties element
-		/// </summary>
-		CheckQualifyingProperties = 0x0800,
-		/// <summary>
-		/// Check if all required HashDataInfos are present on SigAndRefsTimeStamp
-		/// </summary>
-		CheckSigAndRefsTimeStampHashDataInfos = 0x1000,
-		/// <summary>
-		/// Check if all required HashDataInfos are present on RefsOnlyTimeStamp
-		/// </summary>
-		CheckRefsOnlyTimeStampHashDataInfos = 0x2000,
-		/// <summary>
-		/// Check if all required HashDataInfos are present on ArchiveTimeStamp
-		/// </summary>
-		CheckArchiveTimeStampHashDataInfos = 0x4000,
-		/// <summary>
-		/// Check if a XAdES-C signature is also a XAdES-T signature
-		/// </summary>
-		CheckXadesCIsXadesT = 0x8000,
-		/// <summary>
-		/// Check if a XAdES-XL signature is also a XAdES-X signature
-		/// </summary>
-		CheckXadesXLIsXadesX = 0x010000,
-		/// <summary>
-		/// Check if CertificateValues match CertificateRefs
-		/// </summary>
-		CheckCertificateValuesMatchCertificateRefs = 0x020000,
-		/// <summary>
-		/// Check if RevocationValues match RevocationRefs
-		/// </summary>
-		CheckRevocationValuesMatchRevocationRefs = 0x040000,
-		/// <summary>
-		/// Do all known tests on XAdES signature
-		/// </summary>
-		AllChecks = 0xFFFFFF
-	}
+    /// <summary>
+    /// Bitmasks to indicate which checks need to be executed on the XAdES signature
+    /// </summary>
+    [FlagsAttribute]
+    public enum XadesCheckSignatureMasks : ulong
+    {
+        /// <summary>
+        /// Check the signature of the underlying XMLDSIG signature
+        /// </summary>
+        CheckXmldsigSignature = 0x01,
+        /// <summary>
+        /// Validate the XML representation of the signature against the XAdES and XMLDSIG schemas
+        /// </summary>
+        ValidateAgainstSchema = 0x02,
+        /// <summary>
+        /// Check to see if first XMLDSIG certificate has same hashvalue as first XAdES SignatureCertificate
+        /// </summary>
+        CheckSameCertificate = 0x04,
+        /// <summary>
+        /// Check if there is a HashDataInfo for each reference if there is a AllDataObjectsTimeStamp
+        /// </summary>
+        CheckAllReferencesExistInAllDataObjectsTimeStamp = 0x08,
+        /// <summary>
+        /// Check if the HashDataInfo of each IndividualDataObjectsTimeStamp points to existing Reference
+        /// </summary>
+        CheckAllHashDataInfosInIndividualDataObjectsTimeStamp = 0x10,
+        /// <summary>
+        /// Perform XAdES checks on contained counter signatures 
+        /// </summary>
+        CheckCounterSignatures = 0x20,
+        /// <summary>
+        /// Counter signatures should all contain a reference to the parent signature SignatureValue element
+        /// </summary>
+        CheckCounterSignaturesReference = 0x40,
+        /// <summary>
+        /// Check if each ObjectReference in CommitmentTypeIndication points to Reference element
+        /// </summary>
+        CheckObjectReferencesInCommitmentTypeIndication = 0x80,
+        /// <summary>
+        /// Check if at least ClaimedRoles or CertifiedRoles present in SignerRole
+        /// </summary>
+        CheckIfClaimedRolesOrCertifiedRolesPresentInSignerRole = 0x0100,
+        /// <summary>
+        /// Check if HashDataInfo of SignatureTimeStamp points to SignatureValue
+        /// </summary>
+        CheckHashDataInfoOfSignatureTimeStampPointsToSignatureValue = 0x0200,
+        /// <summary>
+        /// Check if the QualifyingProperties Target attribute points to the signature element
+        /// </summary>
+        CheckQualifyingPropertiesTarget = 0x0400,
+        /// <summary>
+        /// Check that QualifyingProperties occur in one Object, check that there is only one QualifyingProperties and that signed properties occur in one QualifyingProperties element
+        /// </summary>
+        CheckQualifyingProperties = 0x0800,
+        /// <summary>
+        /// Check if all required HashDataInfos are present on SigAndRefsTimeStamp
+        /// </summary>
+        CheckSigAndRefsTimeStampHashDataInfos = 0x1000,
+        /// <summary>
+        /// Check if all required HashDataInfos are present on RefsOnlyTimeStamp
+        /// </summary>
+        CheckRefsOnlyTimeStampHashDataInfos = 0x2000,
+        /// <summary>
+        /// Check if all required HashDataInfos are present on ArchiveTimeStamp
+        /// </summary>
+        CheckArchiveTimeStampHashDataInfos = 0x4000,
+        /// <summary>
+        /// Check if a XAdES-C signature is also a XAdES-T signature
+        /// </summary>
+        CheckXadesCIsXadesT = 0x8000,
+        /// <summary>
+        /// Check if a XAdES-XL signature is also a XAdES-X signature
+        /// </summary>
+        CheckXadesXLIsXadesX = 0x010000,
+        /// <summary>
+        /// Check if CertificateValues match CertificateRefs
+        /// </summary>
+        CheckCertificateValuesMatchCertificateRefs = 0x020000,
+        /// <summary>
+        /// Check if RevocationValues match RevocationRefs
+        /// </summary>
+        CheckRevocationValuesMatchRevocationRefs = 0x040000,
+        /// <summary>
+        /// Do all known tests on XAdES signature
+        /// </summary>
+        AllChecks = 0xFFFFFF
+    }
 
-	/// <summary>
-	/// Facade class for the XAdES signature library.  The class inherits from
-	/// the System.Security.Cryptography.Xml.SignedXml class and is backwards
-	/// compatible with it, so this class can host xmldsig signatures and XAdES
-	/// signatures.  The property SignatureStandard will indicate the type of the
-	/// signature: XMLDSIG or XAdES.
-	/// </summary>
-	public class XadesSignedXml : System.Security.Cryptography.Xml.SignedXml
-	{
-		#region Constants
-		/// <summary>
-		/// The XAdES XML namespace URI
-		/// </summary>
-		public const string XadesNamespaceUri = "http://uri.etsi.org/01903/v1.3.2#";
+    /// <summary>
+    /// Facade class for the XAdES signature library.  The class inherits from
+    /// the System.Security.Cryptography.Xml.SignedXml class and is backwards
+    /// compatible with it, so this class can host xmldsig signatures and XAdES
+    /// signatures.  The property SignatureStandard will indicate the type of the
+    /// signature: XMLDSIG or XAdES.
+    /// </summary>
+    public class XadesSignedXml : System.Security.Cryptography.Xml.SignedXml
+    {
+        #region Constants
+        /// <summary>
+        /// The XAdES XML namespace URI
+        /// </summary>
+        public const string XadesNamespaceUri = "http://uri.etsi.org/01903/v1.3.2#";
+        
+        /// <summary>
+        /// Mandated type name for the Uri reference to the SignedProperties element
+        /// </summary>
+        public const string SignedPropertiesType = "http://uri.etsi.org/01903/v1.3.2#SignedProperties";
+        #endregion
 
-		/// <summary>
-		/// Mandated type name for the Uri reference to the SignedProperties element
-		/// </summary>
-		public const string SignedPropertiesType = "http://uri.etsi.org/01903/v1.3.2#SignedProperties";
-		#endregion
-
-		#region Private variables
+        #region Private variables
         private static readonly string[] idAttrs = new string[]
         {
             "_id",
@@ -157,238 +157,239 @@ namespace Microsoft.Xades
             "_ID"
         };
 
-		private KnownSignatureStandard signatureStandard;
-		private XmlDocument cachedXadesObjectDocument;
-		private string signedPropertiesIdBuffer;
-		private string signatureValueId;
-		private bool validationErrorOccurred;
-		private string validationErrorDescription;
-		private string signedInfoIdBuffer;
-		#endregion
+        private KnownSignatureStandard signatureStandard;
+        private XmlDocument cachedXadesObjectDocument;
+        private string signedPropertiesIdBuffer;
+        private string signatureValueId;
+        private bool validationErrorOccurred;
+        private string validationErrorDescription;
+        private string signedInfoIdBuffer;
+        #endregion
 
-		#region Public properties
-		/// <summary>
-		/// Property indicating the type of signature (XmlDsig or XAdES)
-		/// </summary>
-		public KnownSignatureStandard SignatureStandard
-		{
-			get
-			{
-				return this.signatureStandard;
-			}
-		}
+        #region Public properties
+        /// <summary>
+        /// Property indicating the type of signature (XmlDsig or XAdES)
+        /// </summary>
+        public KnownSignatureStandard SignatureStandard
+        {
+            get
+            {
+                return this.signatureStandard;
+            }
+        }
 
-		/// <summary>
-		/// Read-only property containing XAdES information
-		/// </summary>
-		public XadesObject XadesObject
-		{
-			get
-			{
-				XadesObject retVal = new XadesObject();
+        /// <summary>
+        /// Read-only property containing XAdES information
+        /// </summary>
+        public XadesObject XadesObject
+        {
+            get
+            {
+                XadesObject retVal = new XadesObject();
 
-				retVal.LoadXml(this.GetXadesObjectElement(this.GetXml()), this.GetXml());
+                retVal.LoadXml(this.GetXadesObjectElement(this.GetXml()), this.GetXml());
 
-				return retVal;
-			}
-		}
+                return retVal;
+            }
+        }
 
-		/// <summary>
-		/// Setting this property will add an ID attribute to the SignatureValue element.
-		/// This is required when constructing a XAdES-T signature.
-		/// </summary>
-		public string SignatureValueId
-		{
-			get
-			{
-				return this.signatureValueId;
-			}
-			set
-			{
-				this.signatureValueId = value;
-			}
-		}
+        /// <summary>
+        /// Setting this property will add an ID attribute to the SignatureValue element.
+        /// This is required when constructing a XAdES-T signature.
+        /// </summary>
+        public string SignatureValueId
+        {
+            get
+            {
+                return this.signatureValueId;
+            }
+            set
+            {
+                this.signatureValueId = value;
+            }
+        }
 
-		/// <summary>
-		/// This property allows to access and modify the unsigned properties
-		/// after the XAdES object has been added to the signature.
-		/// Because the unsigned properties are part of a location in the
-		/// signature that is not used when computing the signature, it is save
-		/// to modify them even after the XMLDSIG signature has been computed.
-		/// This is needed when XAdES objects that depend on the XMLDSIG
-		/// signature value need to be added to the signature. The
-		/// SignatureTimeStamp element is such a property, it can only be
-		/// created when the XMLDSIG signature has been computed.
-		/// </summary>
-		public UnsignedProperties UnsignedProperties
-		{
-			get
-			{
-				XmlElement dataObjectXmlElement;
-				System.Security.Cryptography.Xml.DataObject xadesDataObject;
-				XmlNamespaceManager xmlNamespaceManager;
-				XmlNodeList xmlNodeList;
-				UnsignedProperties retVal;
+        /// <summary>
+        /// This property allows to access and modify the unsigned properties
+        /// after the XAdES object has been added to the signature.
+        /// Because the unsigned properties are part of a location in the
+        /// signature that is not used when computing the signature, it is save
+        /// to modify them even after the XMLDSIG signature has been computed.
+        /// This is needed when XAdES objects that depend on the XMLDSIG
+        /// signature value need to be added to the signature. The
+        /// SignatureTimeStamp element is such a property, it can only be
+        /// created when the XMLDSIG signature has been computed.
+        /// </summary>
+        public UnsignedProperties UnsignedProperties
+        {
+            get
+            {
+                XmlElement dataObjectXmlElement;
+                System.Security.Cryptography.Xml.DataObject xadesDataObject;
+                XmlNamespaceManager xmlNamespaceManager;
+                XmlNodeList xmlNodeList;
+                UnsignedProperties retVal;
 
-				retVal = new UnsignedProperties();
-				xadesDataObject = this.GetXadesDataObject();
-				if (xadesDataObject != null)
-				{
-					dataObjectXmlElement = xadesDataObject.GetXml();
-					xmlNamespaceManager = new XmlNamespaceManager(dataObjectXmlElement.OwnerDocument.NameTable);
-					xmlNamespaceManager.AddNamespace("xsd", XadesSignedXml.XadesNamespaceUri);
-					xmlNodeList = dataObjectXmlElement.SelectNodes("xsd:QualifyingProperties/xsd:UnsignedProperties", xmlNamespaceManager);
-					if (xmlNodeList.Count != 0)
-					{
-						retVal = new UnsignedProperties();
-						retVal.LoadXml((XmlElement)xmlNodeList[0], (XmlElement)xmlNodeList[0]);
-					}
-				}
-				else
-				{
-					throw new CryptographicException("XAdES object not found. Use AddXadesObject() before accessing UnsignedProperties.");
-				}
+                retVal = new UnsignedProperties();
+                xadesDataObject = this.GetXadesDataObject();
+                if (xadesDataObject != null)
+                {
+                    dataObjectXmlElement = xadesDataObject.GetXml();
+                    xmlNamespaceManager = new XmlNamespaceManager(dataObjectXmlElement.OwnerDocument.NameTable);
+                    xmlNamespaceManager.AddNamespace("xsd", XadesSignedXml.XadesNamespaceUri);
+                    xmlNodeList = dataObjectXmlElement.SelectNodes("xsd:QualifyingProperties/xsd:UnsignedProperties", xmlNamespaceManager);
+                    if (xmlNodeList.Count != 0)
+                    {
+                        retVal = new UnsignedProperties();
+                        retVal.LoadXml((XmlElement)xmlNodeList[0], (XmlElement)xmlNodeList[0]);
+                    }
+                }
+                else
+                {
+                    throw new CryptographicException("XAdES object not found. Use AddXadesObject() before accessing UnsignedProperties.");
+                }
 
-				return retVal;
-			}
+                return retVal;
+            }
 
-			set
-			{
-                XmlElement dataObjectXmlElement=null;
-				System.Security.Cryptography.Xml.DataObject xadesDataObject, newXadesDataObject;
+            set
+            {
+                XmlElement dataObjectXmlElement = null;
+                System.Security.Cryptography.Xml.DataObject xadesDataObject, newXadesDataObject;
                 XmlNamespaceManager xmlNamespaceManager;
                 XmlNodeList qualifyingPropertiesXmlNodeList;
                 XmlNodeList unsignedPropertiesXmlNodeList;
 
                 xadesDataObject = this.GetXadesDataObject();
-				if (xadesDataObject != null)
-				{
-					dataObjectXmlElement = xadesDataObject.GetXml();
-					xmlNamespaceManager = new XmlNamespaceManager(dataObjectXmlElement.OwnerDocument.NameTable);
-					xmlNamespaceManager.AddNamespace("xsd", XadesSignedXml.XadesNamespaceUri);
-					qualifyingPropertiesXmlNodeList = dataObjectXmlElement.SelectNodes("xsd:QualifyingProperties", xmlNamespaceManager);
-					unsignedPropertiesXmlNodeList = dataObjectXmlElement.SelectNodes("xsd:QualifyingProperties/xsd:UnsignedProperties", xmlNamespaceManager);
-					if (unsignedPropertiesXmlNodeList.Count != 0)
-					{
-						qualifyingPropertiesXmlNodeList[0].RemoveChild(unsignedPropertiesXmlNodeList[0]);
-					}
-					qualifyingPropertiesXmlNodeList[0].AppendChild(dataObjectXmlElement.OwnerDocument.ImportNode(value.GetXml(), true));
+                if (xadesDataObject != null)
+                {
+                    dataObjectXmlElement = xadesDataObject.GetXml();
+                    xmlNamespaceManager = new XmlNamespaceManager(dataObjectXmlElement.OwnerDocument.NameTable);
+                    xmlNamespaceManager.AddNamespace("xsd", XadesSignedXml.XadesNamespaceUri);
+                    qualifyingPropertiesXmlNodeList = dataObjectXmlElement.SelectNodes("xsd:QualifyingProperties", xmlNamespaceManager);
+                    unsignedPropertiesXmlNodeList = dataObjectXmlElement.SelectNodes("xsd:QualifyingProperties/xsd:UnsignedProperties", xmlNamespaceManager);
+                    if (unsignedPropertiesXmlNodeList.Count != 0)
+                    {
+                        qualifyingPropertiesXmlNodeList[0].RemoveChild(unsignedPropertiesXmlNodeList[0]);
+                    }
+                    qualifyingPropertiesXmlNodeList[0].AppendChild(dataObjectXmlElement.OwnerDocument.ImportNode(value.GetXml(), true));
 
                     newXadesDataObject = new DataObject();
                     newXadesDataObject.LoadXml(dataObjectXmlElement);
-                    xadesDataObject.Data = newXadesDataObject.Data; 
-				}
-				else
-				{
-					throw new CryptographicException("XAdES object not found. Use AddXadesObject() before accessing UnsignedProperties.");
-				}
-			}
-		}
-		#endregion
+                    xadesDataObject.Data = newXadesDataObject.Data;
+                }
+                else
+                {
+                    throw new CryptographicException("XAdES object not found. Use AddXadesObject() before accessing UnsignedProperties.");
+                }
+            }
+        }
+        #endregion
 
-		#region Constructors
-		/// <summary>
-		/// Default constructor for the XadesSignedXml class
-		/// </summary>
-		public XadesSignedXml() : base()
-		{
-			this.cachedXadesObjectDocument = null;
-			this.signatureStandard = KnownSignatureStandard.XmlDsig;
-		}
+        #region Constructors
+        /// <summary>
+        /// Default constructor for the XadesSignedXml class
+        /// </summary>
+        public XadesSignedXml() : base()
+        {
+            this.cachedXadesObjectDocument = null;
+            this.signatureStandard = KnownSignatureStandard.XmlDsig;
+            this.signedInfoIdBuffer = Guid.NewGuid().ToString();
+        }
 
-		/// <summary>
-		/// Constructor for the XadesSignedXml class
-		/// </summary>
-		/// <param name="signatureElement">XmlElement used to create the instance</param>
-		public XadesSignedXml(XmlElement signatureElement) : base(signatureElement)
-		{
-			this.cachedXadesObjectDocument = null;
-		}
+        /// <summary>
+        /// Constructor for the XadesSignedXml class
+        /// </summary>
+        /// <param name="signatureElement">XmlElement used to create the instance</param>
+        public XadesSignedXml(XmlElement signatureElement) : base(signatureElement)
+        {
+            this.cachedXadesObjectDocument = null;
+        }
 
-		/// <summary>
-		/// Constructor for the XadesSignedXml class
-		/// </summary>
-		/// <param name="signatureDocument">XmlDocument used to create the instance</param>
-		public XadesSignedXml(System.Xml.XmlDocument signatureDocument) : base(signatureDocument)
-		{
-			this.cachedXadesObjectDocument = null;
-		}
-		#endregion
+        /// <summary>
+        /// Constructor for the XadesSignedXml class
+        /// </summary>
+        /// <param name="signatureDocument">XmlDocument used to create the instance</param>
+        public XadesSignedXml(System.Xml.XmlDocument signatureDocument) : base(signatureDocument)
+        {
+            this.cachedXadesObjectDocument = null;
+        }
+        #endregion
 
-		#region Public methods
+        #region Public methods
 
-		/// <summary>
-		/// Load state from an XML element
-		/// </summary>
-		/// <param name="xmlElement">The XML element from which to load the XadesSignedXml state</param>
-		public new void LoadXml(System.Xml.XmlElement xmlElement)
-		{
-			this.cachedXadesObjectDocument = null;
-			this.signatureValueId = null;
-			base.LoadXml(xmlElement);
+        /// <summary>
+        /// Load state from an XML element
+        /// </summary>
+        /// <param name="xmlElement">The XML element from which to load the XadesSignedXml state</param>
+        public new void LoadXml(System.Xml.XmlElement xmlElement)
+        {
+            this.cachedXadesObjectDocument = null;
+            this.signatureValueId = null;
+            base.LoadXml(xmlElement);
 
             XmlNode idAttribute = xmlElement.Attributes.GetNamedItem("Id");
-			if (idAttribute != null)
-			{
-				this.Signature.Id = idAttribute.Value;
-			}
-			this.SetSignatureStandard(xmlElement);
+            if (idAttribute != null)
+            {
+                this.Signature.Id = idAttribute.Value;
+            }
+            this.SetSignatureStandard(xmlElement);
 
             XmlNamespaceManager xmlNamespaceManager = new XmlNamespaceManager(xmlElement.OwnerDocument.NameTable);
-			xmlNamespaceManager.AddNamespace("ds", SignedXml.XmlDsigNamespaceUrl);
+            xmlNamespaceManager.AddNamespace("ds", SignedXml.XmlDsigNamespaceUrl);
 
             XmlNodeList xmlNodeList = xmlElement.SelectNodes("ds:SignatureValue", xmlNamespaceManager);
-			if (xmlNodeList.Count > 0)
-			{
-				if (((XmlElement)xmlNodeList[0]).HasAttribute("Id"))
-				{
-					this.signatureValueId = ((XmlElement)xmlNodeList[0]).Attributes["Id"].Value;
-				}
-			}
-		}
+            if (xmlNodeList.Count > 0)
+            {
+                if (((XmlElement)xmlNodeList[0]).HasAttribute("Id"))
+                {
+                    this.signatureValueId = ((XmlElement)xmlNodeList[0]).Attributes["Id"].Value;
+                }
+            }
+        }
 
-		/// <summary>
-		/// Returns the XML representation of the this object
-		/// </summary>
-		/// <returns>XML element containing the state of this object</returns>
-		public new XmlElement GetXml()
-		{
-			XmlElement retVal;
-			XmlNodeList xmlNodeList;
-			XmlNamespaceManager xmlNamespaceManager;
+        /// <summary>
+        /// Returns the XML representation of the this object
+        /// </summary>
+        /// <returns>XML element containing the state of this object</returns>
+        public new XmlElement GetXml()
+        {
+            XmlElement retVal;
+            XmlNodeList xmlNodeList;
+            XmlNamespaceManager xmlNamespaceManager;
 
-			retVal = base.GetXml();
-			if (this.signatureValueId != null && this.signatureValueId != "")
-			{ //Id on Signature value is needed for XAdES-T. We inject it here.
-				xmlNamespaceManager = new XmlNamespaceManager(retVal.OwnerDocument.NameTable);
-				xmlNamespaceManager.AddNamespace("ds", SignedXml.XmlDsigNamespaceUrl);
-				xmlNodeList = retVal.SelectNodes("ds:SignatureValue", xmlNamespaceManager);
-				if (xmlNodeList.Count > 0)
-				{
-					((XmlElement) xmlNodeList[0]).SetAttribute("Id", this.signatureValueId);
-				}
-			}
+            retVal = base.GetXml();
+            if (this.signatureValueId != null && this.signatureValueId != "")
+            { //Id on Signature value is needed for XAdES-T. We inject it here.
+                xmlNamespaceManager = new XmlNamespaceManager(retVal.OwnerDocument.NameTable);
+                xmlNamespaceManager.AddNamespace("ds", SignedXml.XmlDsigNamespaceUrl);
+                xmlNodeList = retVal.SelectNodes("ds:SignatureValue", xmlNamespaceManager);
+                if (xmlNodeList.Count > 0)
+                {
+                    ((XmlElement)xmlNodeList[0]).SetAttribute("Id", this.signatureValueId);
+                }
+            }
 
             // Add "ds" namespace prefix to all XmlDsig nodes in the signature
             SetPrefix("ds", retVal);
 
-			return retVal;
-		}
+            return retVal;
+        }
 
-		/// <summary>
-		/// Overridden virtual method to be able to find the nested SignedProperties
-		/// element inside of the XAdES object
-		/// </summary>
-		/// <param name="xmlDocument">Document in which to find the Id</param>
-		/// <param name="idValue">Value of the Id to look for</param>
-		/// <returns>XmlElement with requested Id</returns>
+        /// <summary>
+        /// Overridden virtual method to be able to find the nested SignedProperties
+        /// element inside of the XAdES object
+        /// </summary>
+        /// <param name="xmlDocument">Document in which to find the Id</param>
+        /// <param name="idValue">Value of the Id to look for</param>
+        /// <returns>XmlElement with requested Id</returns>
         public override XmlElement GetIdElement(XmlDocument xmlDocument, string idValue)
         {
             // check to see if it's a standard ID reference
             XmlElement retVal = null;
 
-		    
-		    if (idValue == this.signedPropertiesIdBuffer)
+
+            if (idValue == this.signedPropertiesIdBuffer)
             {
                 var xmlDocumentCloned = new XmlDocument();
                 xmlDocumentCloned.LoadXml(xmlDocument.OuterXml);
@@ -458,28 +459,28 @@ namespace Microsoft.Xades
             return retVal;
         }
 
-	/// <summary>
+        /// <summary>
         /// Add a XAdES object to the signature
         /// </summary>
         /// <param name="xadesObject">XAdES object to add to signature</param>
         /// <param name="transform">Extra transform if needed</param>
         public void AddXadesObject(XadesObject xadesObject, System.Security.Cryptography.Xml.Transform transform = null)
-		{
-			Reference reference;
-			DataObject dataObject;
-			XmlElement bufferXmlElement;
+        {
+            Reference reference;
+            DataObject dataObject;
+            XmlElement bufferXmlElement;
 
-			if (this.SignatureStandard != KnownSignatureStandard.Xades)
-			{
-				dataObject = new DataObject();
-				dataObject.Id = xadesObject.Id;
-				dataObject.Data = xadesObject.GetXml().ChildNodes;
-				this.AddObject(dataObject); //Add the XAdES object
+            if (this.SignatureStandard != KnownSignatureStandard.Xades)
+            {
+                dataObject = new DataObject();
+                dataObject.Id = xadesObject.Id;
+                dataObject.Data = xadesObject.GetXml().ChildNodes;
+                this.AddObject(dataObject); //Add the XAdES object
 
-				reference = new Reference();
-				signedPropertiesIdBuffer = xadesObject.QualifyingProperties.SignedProperties.Id;
-				reference.Uri = "#" + signedPropertiesIdBuffer;
-				reference.Type = SignedPropertiesType;
+                reference = new Reference();
+                signedPropertiesIdBuffer = xadesObject.QualifyingProperties.SignedProperties.Id;
+                reference.Uri = "#" + signedPropertiesIdBuffer;
+                reference.Type = SignedPropertiesType;
 
                 // Add extra transform
                 if (transform != null)
@@ -489,148 +490,148 @@ namespace Microsoft.Xades
 
                 this.AddReference(reference); //Add the XAdES object reference
 
-				this.cachedXadesObjectDocument = new XmlDocument();
-				bufferXmlElement = xadesObject.GetXml();
+                this.cachedXadesObjectDocument = new XmlDocument();
+                bufferXmlElement = xadesObject.GetXml();
 
                 // Add "ds" namespace prefix to all XmlDsig nodes in the XAdES object
                 SetPrefix("ds", bufferXmlElement);
 
-				this.cachedXadesObjectDocument.PreserveWhitespace = true;
-				this.cachedXadesObjectDocument.LoadXml(bufferXmlElement.OuterXml); //Cache to XAdES object for later use
+                this.cachedXadesObjectDocument.PreserveWhitespace = true;
+                this.cachedXadesObjectDocument.LoadXml(bufferXmlElement.OuterXml); //Cache to XAdES object for later use
 
-				this.signatureStandard = KnownSignatureStandard.Xades;
-			}
-			else
-			{
-				throw new CryptographicException("Can't add XAdES object, the signature already contains a XAdES object");
-			}
-		}
+                this.signatureStandard = KnownSignatureStandard.Xades;
+            }
+            else
+            {
+                throw new CryptographicException("Can't add XAdES object, the signature already contains a XAdES object");
+            }
+        }
 
-		/// <summary>
-		/// Additional tests for XAdES signatures.  These tests focus on
-		/// XMLDSIG verification and correct form of the XAdES XML structure
-		/// (schema validation and completeness as defined by the XAdES standard).
-		/// </summary>
-		/// <remarks>
-		/// Because of the fact that the XAdES library is intentionally
-		/// independent of standards like TSP (RFC3161) or OCSP (RFC2560),
-		/// these tests do NOT include any verification of timestamps nor OCSP
-		/// responses.
-		/// These checks are important and have to be done in the application
-		/// built on top of the XAdES library.
-		/// </remarks>
-		/// <exception cref="System.Exception">Thrown when the signature is not
-		/// a XAdES signature.  SignatureStandard should be equal to
-		/// <see cref="KnownSignatureStandard.Xades">KnownSignatureStandard.Xades</see>.
-		/// Use the CheckSignature method for non-XAdES signatures.</exception>
-		/// <param name="xadesCheckSignatureMasks">Bitmask to indicate which
-		/// tests need to be done.  This function will call a public virtual
-		/// methods for each bit that has been set in this mask.
-		/// See the <see cref="XadesCheckSignatureMasks">XadesCheckSignatureMasks</see>
-		/// enum for the bitmask definitions.  The virtual test method associated
-		/// with a bit in the mask has the same name as enum value name.</param>
-		/// <returns>If the function returns true the check was OK.  If the
-		/// check fails an exception with a explanatory message is thrown.</returns>
-		public bool XadesCheckSignature(XadesCheckSignatureMasks xadesCheckSignatureMasks)
-		{
-			bool retVal;
+        /// <summary>
+        /// Additional tests for XAdES signatures.  These tests focus on
+        /// XMLDSIG verification and correct form of the XAdES XML structure
+        /// (schema validation and completeness as defined by the XAdES standard).
+        /// </summary>
+        /// <remarks>
+        /// Because of the fact that the XAdES library is intentionally
+        /// independent of standards like TSP (RFC3161) or OCSP (RFC2560),
+        /// these tests do NOT include any verification of timestamps nor OCSP
+        /// responses.
+        /// These checks are important and have to be done in the application
+        /// built on top of the XAdES library.
+        /// </remarks>
+        /// <exception cref="System.Exception">Thrown when the signature is not
+        /// a XAdES signature.  SignatureStandard should be equal to
+        /// <see cref="KnownSignatureStandard.Xades">KnownSignatureStandard.Xades</see>.
+        /// Use the CheckSignature method for non-XAdES signatures.</exception>
+        /// <param name="xadesCheckSignatureMasks">Bitmask to indicate which
+        /// tests need to be done.  This function will call a public virtual
+        /// methods for each bit that has been set in this mask.
+        /// See the <see cref="XadesCheckSignatureMasks">XadesCheckSignatureMasks</see>
+        /// enum for the bitmask definitions.  The virtual test method associated
+        /// with a bit in the mask has the same name as enum value name.</param>
+        /// <returns>If the function returns true the check was OK.  If the
+        /// check fails an exception with a explanatory message is thrown.</returns>
+        public bool XadesCheckSignature(XadesCheckSignatureMasks xadesCheckSignatureMasks)
+        {
+            bool retVal;
 
-			retVal = true;
-			if (this.SignatureStandard != KnownSignatureStandard.Xades)
-			{
-				throw new Exception("SignatureStandard is not XAdES.  CheckSignature returned: " + this.CheckSignature());
-			}
-			else
-			{
-				if ((xadesCheckSignatureMasks & XadesCheckSignatureMasks.CheckXmldsigSignature) != 0)
-				{
-					retVal &= this.CheckXmldsigSignature();
-				}
-				if ((xadesCheckSignatureMasks & XadesCheckSignatureMasks.ValidateAgainstSchema) != 0)
-				{
-					retVal &= this.ValidateAgainstSchema();
-				}
-				if ((xadesCheckSignatureMasks & XadesCheckSignatureMasks.CheckSameCertificate) != 0)
-				{
-					retVal &= this.CheckSameCertificate();
-				}
-				if ((xadesCheckSignatureMasks & XadesCheckSignatureMasks.CheckAllReferencesExistInAllDataObjectsTimeStamp) != 0)
-				{
-					retVal &= this.CheckAllReferencesExistInAllDataObjectsTimeStamp();
-				}
-				if ((xadesCheckSignatureMasks & XadesCheckSignatureMasks.CheckAllHashDataInfosInIndividualDataObjectsTimeStamp) != 0)
-				{
-					retVal &= this.CheckAllHashDataInfosInIndividualDataObjectsTimeStamp();
-				}
-				if ((xadesCheckSignatureMasks & XadesCheckSignatureMasks.CheckCounterSignatures) != 0)
-				{
-					retVal &= this.CheckCounterSignatures(xadesCheckSignatureMasks);
-				}
-				if ((xadesCheckSignatureMasks & XadesCheckSignatureMasks.CheckCounterSignaturesReference) != 0)
-				{
-					retVal &= this.CheckCounterSignaturesReference();
-				}
-				if ((xadesCheckSignatureMasks & XadesCheckSignatureMasks.CheckObjectReferencesInCommitmentTypeIndication) != 0)
-				{
-					retVal &= this.CheckObjectReferencesInCommitmentTypeIndication();
-				}
-				if ((xadesCheckSignatureMasks & XadesCheckSignatureMasks.CheckIfClaimedRolesOrCertifiedRolesPresentInSignerRole) != 0)
-				{
-					retVal &= this.CheckIfClaimedRolesOrCertifiedRolesPresentInSignerRole();
-				}
-				if ((xadesCheckSignatureMasks & XadesCheckSignatureMasks.CheckHashDataInfoOfSignatureTimeStampPointsToSignatureValue) != 0)
-				{
-					retVal &= this.CheckHashDataInfoOfSignatureTimeStampPointsToSignatureValue();
-				}
-				if ((xadesCheckSignatureMasks & XadesCheckSignatureMasks.CheckQualifyingPropertiesTarget) != 0)
-				{
-					retVal &= this.CheckQualifyingPropertiesTarget();
-				}
-				if ((xadesCheckSignatureMasks & XadesCheckSignatureMasks.CheckQualifyingProperties) != 0)
-				{
-					retVal &= this.CheckQualifyingProperties();
-				}
-				if ((xadesCheckSignatureMasks & XadesCheckSignatureMasks.CheckSigAndRefsTimeStampHashDataInfos) != 0)
-				{
-					retVal &= this.CheckSigAndRefsTimeStampHashDataInfos();
-				}
-				if ((xadesCheckSignatureMasks & XadesCheckSignatureMasks.CheckRefsOnlyTimeStampHashDataInfos) != 0)
-				{
-					retVal &= this.CheckRefsOnlyTimeStampHashDataInfos();
-				}
-				if ((xadesCheckSignatureMasks & XadesCheckSignatureMasks.CheckArchiveTimeStampHashDataInfos) != 0)
-				{
-					retVal &= this.CheckArchiveTimeStampHashDataInfos();
-				}
-				if ((xadesCheckSignatureMasks & XadesCheckSignatureMasks.CheckXadesCIsXadesT) != 0)
-				{
-					retVal &= this.CheckXadesCIsXadesT();
-				}
-				if ((xadesCheckSignatureMasks & XadesCheckSignatureMasks.CheckXadesXLIsXadesX) != 0)
-				{
-					retVal &= this.CheckXadesXLIsXadesX();
-				}
-				if ((xadesCheckSignatureMasks & XadesCheckSignatureMasks.CheckCertificateValuesMatchCertificateRefs) != 0)
-				{
-					retVal &= this.CheckCertificateValuesMatchCertificateRefs();
-				}
-				if ((xadesCheckSignatureMasks & XadesCheckSignatureMasks.CheckRevocationValuesMatchRevocationRefs) != 0)
-				{
-					retVal &= this.CheckRevocationValuesMatchRevocationRefs();
-				}
-			}
+            retVal = true;
+            if (this.SignatureStandard != KnownSignatureStandard.Xades)
+            {
+                throw new Exception("SignatureStandard is not XAdES.  CheckSignature returned: " + this.CheckSignature());
+            }
+            else
+            {
+                if ((xadesCheckSignatureMasks & XadesCheckSignatureMasks.CheckXmldsigSignature) != 0)
+                {
+                    retVal &= this.CheckXmldsigSignature();
+                }
+                if ((xadesCheckSignatureMasks & XadesCheckSignatureMasks.ValidateAgainstSchema) != 0)
+                {
+                    retVal &= this.ValidateAgainstSchema();
+                }
+                if ((xadesCheckSignatureMasks & XadesCheckSignatureMasks.CheckSameCertificate) != 0)
+                {
+                    retVal &= this.CheckSameCertificate();
+                }
+                if ((xadesCheckSignatureMasks & XadesCheckSignatureMasks.CheckAllReferencesExistInAllDataObjectsTimeStamp) != 0)
+                {
+                    retVal &= this.CheckAllReferencesExistInAllDataObjectsTimeStamp();
+                }
+                if ((xadesCheckSignatureMasks & XadesCheckSignatureMasks.CheckAllHashDataInfosInIndividualDataObjectsTimeStamp) != 0)
+                {
+                    retVal &= this.CheckAllHashDataInfosInIndividualDataObjectsTimeStamp();
+                }
+                if ((xadesCheckSignatureMasks & XadesCheckSignatureMasks.CheckCounterSignatures) != 0)
+                {
+                    retVal &= this.CheckCounterSignatures(xadesCheckSignatureMasks);
+                }
+                if ((xadesCheckSignatureMasks & XadesCheckSignatureMasks.CheckCounterSignaturesReference) != 0)
+                {
+                    retVal &= this.CheckCounterSignaturesReference();
+                }
+                if ((xadesCheckSignatureMasks & XadesCheckSignatureMasks.CheckObjectReferencesInCommitmentTypeIndication) != 0)
+                {
+                    retVal &= this.CheckObjectReferencesInCommitmentTypeIndication();
+                }
+                if ((xadesCheckSignatureMasks & XadesCheckSignatureMasks.CheckIfClaimedRolesOrCertifiedRolesPresentInSignerRole) != 0)
+                {
+                    retVal &= this.CheckIfClaimedRolesOrCertifiedRolesPresentInSignerRole();
+                }
+                if ((xadesCheckSignatureMasks & XadesCheckSignatureMasks.CheckHashDataInfoOfSignatureTimeStampPointsToSignatureValue) != 0)
+                {
+                    retVal &= this.CheckHashDataInfoOfSignatureTimeStampPointsToSignatureValue();
+                }
+                if ((xadesCheckSignatureMasks & XadesCheckSignatureMasks.CheckQualifyingPropertiesTarget) != 0)
+                {
+                    retVal &= this.CheckQualifyingPropertiesTarget();
+                }
+                if ((xadesCheckSignatureMasks & XadesCheckSignatureMasks.CheckQualifyingProperties) != 0)
+                {
+                    retVal &= this.CheckQualifyingProperties();
+                }
+                if ((xadesCheckSignatureMasks & XadesCheckSignatureMasks.CheckSigAndRefsTimeStampHashDataInfos) != 0)
+                {
+                    retVal &= this.CheckSigAndRefsTimeStampHashDataInfos();
+                }
+                if ((xadesCheckSignatureMasks & XadesCheckSignatureMasks.CheckRefsOnlyTimeStampHashDataInfos) != 0)
+                {
+                    retVal &= this.CheckRefsOnlyTimeStampHashDataInfos();
+                }
+                if ((xadesCheckSignatureMasks & XadesCheckSignatureMasks.CheckArchiveTimeStampHashDataInfos) != 0)
+                {
+                    retVal &= this.CheckArchiveTimeStampHashDataInfos();
+                }
+                if ((xadesCheckSignatureMasks & XadesCheckSignatureMasks.CheckXadesCIsXadesT) != 0)
+                {
+                    retVal &= this.CheckXadesCIsXadesT();
+                }
+                if ((xadesCheckSignatureMasks & XadesCheckSignatureMasks.CheckXadesXLIsXadesX) != 0)
+                {
+                    retVal &= this.CheckXadesXLIsXadesX();
+                }
+                if ((xadesCheckSignatureMasks & XadesCheckSignatureMasks.CheckCertificateValuesMatchCertificateRefs) != 0)
+                {
+                    retVal &= this.CheckCertificateValuesMatchCertificateRefs();
+                }
+                if ((xadesCheckSignatureMasks & XadesCheckSignatureMasks.CheckRevocationValuesMatchRevocationRefs) != 0)
+                {
+                    retVal &= this.CheckRevocationValuesMatchRevocationRefs();
+                }
+            }
 
-			return retVal;
-		}
+            return retVal;
+        }
 
-		#region XadesCheckSignature routines
-		/// <summary>
-		/// Check the signature of the underlying XMLDSIG signature
-		/// </summary>
-		/// <returns>If the function returns true the check was OK</returns>
-		public virtual bool CheckXmldsigSignature()
-		{
-			bool retVal = false;
+        #region XadesCheckSignature routines
+        /// <summary>
+        /// Check the signature of the underlying XMLDSIG signature
+        /// </summary>
+        /// <returns>If the function returns true the check was OK</returns>
+        public virtual bool CheckXmldsigSignature()
+        {
+            bool retVal = false;
             /*
             KeyInfo keyInfo = new KeyInfo();
             X509Certificate xmldsigCert = new X509Certificate(System.Text.Encoding.ASCII.GetBytes(this.KeyInfo.GetXml().InnerText));
@@ -638,18 +639,18 @@ namespace Microsoft.Xades
             this.KeyInfo = keyInfo; 
             */
             retVal = this.CheckSignature();
-			if (retVal == false)
-			{
-				throw new CryptographicException("CheckXmldsigSignature() failed");
-			}
+            if (retVal == false)
+            {
+                throw new CryptographicException("CheckXmldsigSignature() failed");
+            }
 
-			return retVal;
-		}
+            return retVal;
+        }
 
-		/// <summary>
-		/// Validate the XML representation of the signature against the XAdES and XMLDSIG schemas
-		/// </summary>
-		/// <returns>If the function returns true the check was OK</returns>
+        /// <summary>
+        /// Validate the XML representation of the signature against the XAdES and XMLDSIG schemas
+        /// </summary>
+        /// <returns>If the function returns true the check was OK</returns>
         public virtual bool ValidateAgainstSchema()
         {
             bool retValue = false;
@@ -700,7 +701,7 @@ namespace Microsoft.Xades
             xmlNamespaceManager.AddNamespace("xsd", XadesSignedXml.XadesNamespaceUri);
 
             xmlParserContext = new XmlParserContext(null, xmlNamespaceManager, null, XmlSpace.None);
-        
+
             XmlTextReader txtReader = new XmlTextReader(this.GetXml().OuterXml, XmlNodeType.Element, xmlParserContext);
             XmlReader reader = XmlReader.Create(txtReader, xmlReaderSettings);
             try
@@ -719,19 +720,19 @@ namespace Microsoft.Xades
             {
                 reader.Close();
             }
-            
+
             retValue = true;
 
             return retValue;
         }
 
-		/// <summary>
-		/// Check to see if first XMLDSIG certificate has same hashvalue as first XAdES SignatureCertificate
-		/// </summary>
-		/// <returns>If the function returns true the check was OK</returns>
-		public virtual bool CheckSameCertificate()
-		{
-			bool retVal = false;
+        /// <summary>
+        /// Check to see if first XMLDSIG certificate has same hashvalue as first XAdES SignatureCertificate
+        /// </summary>
+        /// <returns>If the function returns true the check was OK</returns>
+        public virtual bool CheckSameCertificate()
+        {
+            bool retVal = false;
 
             //KeyInfoX509Data keyInfoX509Data = new KeyInfoX509Data();
             //keyInfoX509Data.LoadXml(this.KeyInfo.GetXml());
@@ -745,545 +746,545 @@ namespace Microsoft.Xades
             string xmldsigCertHash = Convert.ToBase64String(xmldsigCert.GetCertHash());
 
             CertCollection xadesSigningCertificateCollection = this.XadesObject.QualifyingProperties.SignedProperties.SignedSignatureProperties.SigningCertificate.CertCollection;
-			if (xadesSigningCertificateCollection.Count <= 0)
-			{
-				throw new CryptographicException("Certificate not found in SigningCertificate element while doing CheckSameCertificate()");
-			}
-			string xadesCertHash = Convert.ToBase64String(((Cert)xadesSigningCertificateCollection[0]).CertDigest.DigestValue);
-			
+            if (xadesSigningCertificateCollection.Count <= 0)
+            {
+                throw new CryptographicException("Certificate not found in SigningCertificate element while doing CheckSameCertificate()");
+            }
+            string xadesCertHash = Convert.ToBase64String(((Cert)xadesSigningCertificateCollection[0]).CertDigest.DigestValue);
+
             if (String.Compare(xmldsigCertHash, xadesCertHash, true, CultureInfo.InvariantCulture) != 0)
-			{
-				throw new CryptographicException("Certificate in XMLDSIG signature doesn't match certificate in SigningCertificate element");
-			}
-			retVal = true;
+            {
+                throw new CryptographicException("Certificate in XMLDSIG signature doesn't match certificate in SigningCertificate element");
+            }
+            retVal = true;
 
-			return retVal;
-		}
+            return retVal;
+        }
 
-		/// <summary>
-		/// Check if there is a HashDataInfo for each reference if there is a AllDataObjectsTimeStamp
-		/// </summary>
-		/// <returns>If the function returns true the check was OK</returns>
-		public virtual bool CheckAllReferencesExistInAllDataObjectsTimeStamp()
-		{
-			AllDataObjectsTimeStampCollection allDataObjectsTimeStampCollection;
-			bool allHashDataInfosExist;
-			TimeStamp timeStamp;
-			int timeStampCounter;
-			bool retVal;
-			
-			allHashDataInfosExist = true;
-			retVal = false;
-			allDataObjectsTimeStampCollection = this.XadesObject.QualifyingProperties.SignedProperties.SignedDataObjectProperties.AllDataObjectsTimeStampCollection;
-			if (allDataObjectsTimeStampCollection.Count > 0)
-			{
-				for (timeStampCounter = 0; allHashDataInfosExist && (timeStampCounter < allDataObjectsTimeStampCollection.Count); timeStampCounter++)
-				{
-					timeStamp = allDataObjectsTimeStampCollection[timeStampCounter];
-					allHashDataInfosExist &= this.CheckHashDataInfosForTimeStamp(timeStamp);
-				}
-				if (!allHashDataInfosExist)
-				{
-					throw new CryptographicException("At least one HashDataInfo is missing in AllDataObjectsTimeStamp element");
-				}
-			}
-			retVal = true;
+        /// <summary>
+        /// Check if there is a HashDataInfo for each reference if there is a AllDataObjectsTimeStamp
+        /// </summary>
+        /// <returns>If the function returns true the check was OK</returns>
+        public virtual bool CheckAllReferencesExistInAllDataObjectsTimeStamp()
+        {
+            AllDataObjectsTimeStampCollection allDataObjectsTimeStampCollection;
+            bool allHashDataInfosExist;
+            TimeStamp timeStamp;
+            int timeStampCounter;
+            bool retVal;
 
-			return retVal;
-		}
+            allHashDataInfosExist = true;
+            retVal = false;
+            allDataObjectsTimeStampCollection = this.XadesObject.QualifyingProperties.SignedProperties.SignedDataObjectProperties.AllDataObjectsTimeStampCollection;
+            if (allDataObjectsTimeStampCollection.Count > 0)
+            {
+                for (timeStampCounter = 0; allHashDataInfosExist && (timeStampCounter < allDataObjectsTimeStampCollection.Count); timeStampCounter++)
+                {
+                    timeStamp = allDataObjectsTimeStampCollection[timeStampCounter];
+                    allHashDataInfosExist &= this.CheckHashDataInfosForTimeStamp(timeStamp);
+                }
+                if (!allHashDataInfosExist)
+                {
+                    throw new CryptographicException("At least one HashDataInfo is missing in AllDataObjectsTimeStamp element");
+                }
+            }
+            retVal = true;
 
-		/// <summary>
-		/// Check if the HashDataInfo of each IndividualDataObjectsTimeStamp points to existing Reference
-		/// </summary>
-		/// <returns>If the function returns true the check was OK</returns>
-		public virtual bool CheckAllHashDataInfosInIndividualDataObjectsTimeStamp()
-		{
-			IndividualDataObjectsTimeStampCollection individualDataObjectsTimeStampCollection;
-			bool hashDataInfoExists;
-			TimeStamp timeStamp;
-			int timeStampCounter;
-			bool retVal;
-			
-			hashDataInfoExists = true;
-			retVal = false;
-			individualDataObjectsTimeStampCollection = this.XadesObject.QualifyingProperties.SignedProperties.SignedDataObjectProperties.IndividualDataObjectsTimeStampCollection;
-			if (individualDataObjectsTimeStampCollection.Count > 0)
-			{
-				for (timeStampCounter = 0; hashDataInfoExists && (timeStampCounter < individualDataObjectsTimeStampCollection.Count); timeStampCounter++)
-				{
-					timeStamp = individualDataObjectsTimeStampCollection[timeStampCounter];
-					hashDataInfoExists &= this.CheckHashDataInfosExist(timeStamp);
-				}
-				if (hashDataInfoExists == false)
-				{
-					throw new CryptographicException("At least one HashDataInfo is pointing to non-existing reference in IndividualDataObjectsTimeStamp element");
-				}
-			}
-			retVal = true;
+            return retVal;
+        }
 
-			return retVal;
-		}
+        /// <summary>
+        /// Check if the HashDataInfo of each IndividualDataObjectsTimeStamp points to existing Reference
+        /// </summary>
+        /// <returns>If the function returns true the check was OK</returns>
+        public virtual bool CheckAllHashDataInfosInIndividualDataObjectsTimeStamp()
+        {
+            IndividualDataObjectsTimeStampCollection individualDataObjectsTimeStampCollection;
+            bool hashDataInfoExists;
+            TimeStamp timeStamp;
+            int timeStampCounter;
+            bool retVal;
 
-		/// <summary>
-		/// Perform XAdES checks on contained counter signatures.  If couter signature is XMLDSIG, only XMLDSIG check (CheckSignature()) is done.
-		/// </summary>
-		/// <param name="counterSignatureMask">Check mask applied to counter signatures</param>
-		/// <returns>If the function returns true the check was OK</returns>
-		public virtual bool CheckCounterSignatures(XadesCheckSignatureMasks counterSignatureMask)
-		{
-			CounterSignatureCollection counterSignatureCollection;
-			XadesSignedXml counterSignature;
-			bool retVal;
-			
-			retVal = true;
-			counterSignatureCollection = this.XadesObject.QualifyingProperties.UnsignedProperties.UnsignedSignatureProperties.CounterSignatureCollection;
-			for (int counterSignatureCounter = 0; (retVal == true) && (counterSignatureCounter < counterSignatureCollection.Count); counterSignatureCounter++)
-			{
-				counterSignature = counterSignatureCollection[counterSignatureCounter];
-				//TODO: check if parent signature document is present in counterSignature (maybe a deep copy is required)
-				if (counterSignature.signatureStandard == KnownSignatureStandard.Xades)
-				{
-					retVal &= counterSignature.XadesCheckSignature(counterSignatureMask);
-				}
-				else
-				{
-					retVal &= counterSignature.CheckSignature();
-				}
-			}
-			if (retVal == false)
-			{
-				throw new CryptographicException("XadesCheckSignature() failed on at least one counter signature");
-			}
-			retVal = true;
+            hashDataInfoExists = true;
+            retVal = false;
+            individualDataObjectsTimeStampCollection = this.XadesObject.QualifyingProperties.SignedProperties.SignedDataObjectProperties.IndividualDataObjectsTimeStampCollection;
+            if (individualDataObjectsTimeStampCollection.Count > 0)
+            {
+                for (timeStampCounter = 0; hashDataInfoExists && (timeStampCounter < individualDataObjectsTimeStampCollection.Count); timeStampCounter++)
+                {
+                    timeStamp = individualDataObjectsTimeStampCollection[timeStampCounter];
+                    hashDataInfoExists &= this.CheckHashDataInfosExist(timeStamp);
+                }
+                if (hashDataInfoExists == false)
+                {
+                    throw new CryptographicException("At least one HashDataInfo is pointing to non-existing reference in IndividualDataObjectsTimeStamp element");
+                }
+            }
+            retVal = true;
 
-			return retVal;
-		}
+            return retVal;
+        }
 
-		/// <summary>
-		/// Counter signatures should all contain a reference to the parent signature SignatureValue element
-		/// </summary>
-		/// <returns>If the function returns true the check was OK</returns>
-		public virtual bool CheckCounterSignaturesReference()
-		{
-			CounterSignatureCollection counterSignatureCollection;
-			XadesSignedXml counterSignature;
-			string referenceUri;
-			ArrayList parentSignatureValueChain;
-			bool referenceToParentSignatureFound;
-			bool retVal;
-			
-			retVal = true;
-			parentSignatureValueChain = new ArrayList();
-			parentSignatureValueChain.Add("#" + this.signatureValueId);
-			counterSignatureCollection = this.XadesObject.QualifyingProperties.UnsignedProperties.UnsignedSignatureProperties.CounterSignatureCollection;
-			for (int counterSignatureCounter = 0; (retVal == true) && (counterSignatureCounter < counterSignatureCollection.Count); counterSignatureCounter++)
-			{
-				counterSignature = counterSignatureCollection[counterSignatureCounter];
-				referenceToParentSignatureFound = false;
-				for (int referenceCounter = 0; referenceToParentSignatureFound == false && (referenceCounter < counterSignature.SignedInfo.References.Count); referenceCounter++)
-				{
-					referenceUri = ((Reference)counterSignature.SignedInfo.References[referenceCounter]).Uri;
-					if (parentSignatureValueChain.BinarySearch(referenceUri) >= 0)
-					{
-						referenceToParentSignatureFound = true;
-					}
-					parentSignatureValueChain.Add("#" + counterSignature.SignatureValueId);
-					parentSignatureValueChain.Sort();
-				}
-				retVal = referenceToParentSignatureFound;
-			}
-			if (retVal == false)
-			{
-				throw new CryptographicException("CheckCounterSignaturesReference() failed on at least one counter signature");
-			}
-			retVal = true;
+        /// <summary>
+        /// Perform XAdES checks on contained counter signatures.  If couter signature is XMLDSIG, only XMLDSIG check (CheckSignature()) is done.
+        /// </summary>
+        /// <param name="counterSignatureMask">Check mask applied to counter signatures</param>
+        /// <returns>If the function returns true the check was OK</returns>
+        public virtual bool CheckCounterSignatures(XadesCheckSignatureMasks counterSignatureMask)
+        {
+            CounterSignatureCollection counterSignatureCollection;
+            XadesSignedXml counterSignature;
+            bool retVal;
 
-			return retVal;
-		}
+            retVal = true;
+            counterSignatureCollection = this.XadesObject.QualifyingProperties.UnsignedProperties.UnsignedSignatureProperties.CounterSignatureCollection;
+            for (int counterSignatureCounter = 0; (retVal == true) && (counterSignatureCounter < counterSignatureCollection.Count); counterSignatureCounter++)
+            {
+                counterSignature = counterSignatureCollection[counterSignatureCounter];
+                //TODO: check if parent signature document is present in counterSignature (maybe a deep copy is required)
+                if (counterSignature.signatureStandard == KnownSignatureStandard.Xades)
+                {
+                    retVal &= counterSignature.XadesCheckSignature(counterSignatureMask);
+                }
+                else
+                {
+                    retVal &= counterSignature.CheckSignature();
+                }
+            }
+            if (retVal == false)
+            {
+                throw new CryptographicException("XadesCheckSignature() failed on at least one counter signature");
+            }
+            retVal = true;
 
-		/// <summary>
-		/// Check if each ObjectReference in CommitmentTypeIndication points to Reference element
-		/// </summary>
-		/// <returns>If the function returns true the check was OK</returns>
-		public virtual bool CheckObjectReferencesInCommitmentTypeIndication()
-		{
-			CommitmentTypeIndicationCollection commitmentTypeIndicationCollection;
-			CommitmentTypeIndication commitmentTypeIndication;
-			bool objectReferenceOK;
-			bool retVal;
-			
-			retVal = true;
-			commitmentTypeIndicationCollection = this.XadesObject.QualifyingProperties.SignedProperties.SignedDataObjectProperties.CommitmentTypeIndicationCollection;
-			if (commitmentTypeIndicationCollection.Count > 0)
-			{
-				for (int commitmentTypeIndicationCounter = 0; (retVal == true) && (commitmentTypeIndicationCounter < commitmentTypeIndicationCollection.Count); commitmentTypeIndicationCounter++)
-				{
-					commitmentTypeIndication = commitmentTypeIndicationCollection[commitmentTypeIndicationCounter];
-					objectReferenceOK = true;
-					foreach (ObjectReference objectReference in commitmentTypeIndication.ObjectReferenceCollection)
-					{
-						objectReferenceOK &= this.CheckObjectReference(objectReference);
-					}
-					retVal = objectReferenceOK;
-				}
-				if (retVal == false)
-				{
-					throw new CryptographicException("At least one ObjectReference in CommitmentTypeIndication did not point to a Reference");
-				}
-			}
+            return retVal;
+        }
 
-			return retVal;
-		}
+        /// <summary>
+        /// Counter signatures should all contain a reference to the parent signature SignatureValue element
+        /// </summary>
+        /// <returns>If the function returns true the check was OK</returns>
+        public virtual bool CheckCounterSignaturesReference()
+        {
+            CounterSignatureCollection counterSignatureCollection;
+            XadesSignedXml counterSignature;
+            string referenceUri;
+            ArrayList parentSignatureValueChain;
+            bool referenceToParentSignatureFound;
+            bool retVal;
 
-		/// <summary>
-		/// Check if at least ClaimedRoles or CertifiedRoles present in SignerRole
-		/// </summary>
-		/// <returns>If the function returns true the check was OK</returns>
-		public virtual bool CheckIfClaimedRolesOrCertifiedRolesPresentInSignerRole()
-		{
-			SignerRole signerRole;
-			bool retVal;
-			
-			retVal = false;
-			signerRole = this.XadesObject.QualifyingProperties.SignedProperties.SignedSignatureProperties.SignerRole;
-			if (signerRole != null)
-			{
-				if (signerRole.CertifiedRoles != null)
-				{
-					retVal = (signerRole.CertifiedRoles.CertifiedRoleCollection.Count > 0);
-				}
-				if (retVal == false)
-				{
-					if (signerRole.ClaimedRoles != null)
-					{
-						retVal = (signerRole.ClaimedRoles.ClaimedRoleCollection.Count > 0);
-					}
-				}
-				if (retVal == false)
-				{
-					throw new CryptographicException("SignerRole element must contain at least one CertifiedRole or ClaimedRole element");
-				}
-			}
-			else
-			{
-				retVal = true;
-			}
+            retVal = true;
+            parentSignatureValueChain = new ArrayList();
+            parentSignatureValueChain.Add("#" + this.signatureValueId);
+            counterSignatureCollection = this.XadesObject.QualifyingProperties.UnsignedProperties.UnsignedSignatureProperties.CounterSignatureCollection;
+            for (int counterSignatureCounter = 0; (retVal == true) && (counterSignatureCounter < counterSignatureCollection.Count); counterSignatureCounter++)
+            {
+                counterSignature = counterSignatureCollection[counterSignatureCounter];
+                referenceToParentSignatureFound = false;
+                for (int referenceCounter = 0; referenceToParentSignatureFound == false && (referenceCounter < counterSignature.SignedInfo.References.Count); referenceCounter++)
+                {
+                    referenceUri = ((Reference)counterSignature.SignedInfo.References[referenceCounter]).Uri;
+                    if (parentSignatureValueChain.BinarySearch(referenceUri) >= 0)
+                    {
+                        referenceToParentSignatureFound = true;
+                    }
+                    parentSignatureValueChain.Add("#" + counterSignature.SignatureValueId);
+                    parentSignatureValueChain.Sort();
+                }
+                retVal = referenceToParentSignatureFound;
+            }
+            if (retVal == false)
+            {
+                throw new CryptographicException("CheckCounterSignaturesReference() failed on at least one counter signature");
+            }
+            retVal = true;
 
-			return retVal;
-		}
+            return retVal;
+        }
 
-		/// <summary>
-		/// Check if HashDataInfo of SignatureTimeStamp points to SignatureValue
-		/// </summary>
-		/// <returns>If the function returns true the check was OK</returns>
-		public virtual bool CheckHashDataInfoOfSignatureTimeStampPointsToSignatureValue()
-		{
-			SignatureTimeStampCollection signatureTimeStampCollection;
-			bool hashDataInfoPointsToSignatureValue;
-			TimeStamp timeStamp;
-			int timeStampCounter;
-			bool retVal;
-			
-			hashDataInfoPointsToSignatureValue = true;
-			retVal = false;
-			signatureTimeStampCollection = this.XadesObject.QualifyingProperties.UnsignedProperties.UnsignedSignatureProperties.SignatureTimeStampCollection;
-			if (signatureTimeStampCollection.Count > 0)
-			{
-				for (timeStampCounter = 0; hashDataInfoPointsToSignatureValue && (timeStampCounter < signatureTimeStampCollection.Count); timeStampCounter++)
-				{
-					timeStamp = signatureTimeStampCollection[timeStampCounter];
-					hashDataInfoPointsToSignatureValue &= this.CheckHashDataInfoPointsToSignatureValue(timeStamp);
-				}
-				if (hashDataInfoPointsToSignatureValue == false)
-				{
-					throw new CryptographicException("HashDataInfo of SignatureTimeStamp doesn't point to signature value element");
-				}
-			}
-			retVal = true;
+        /// <summary>
+        /// Check if each ObjectReference in CommitmentTypeIndication points to Reference element
+        /// </summary>
+        /// <returns>If the function returns true the check was OK</returns>
+        public virtual bool CheckObjectReferencesInCommitmentTypeIndication()
+        {
+            CommitmentTypeIndicationCollection commitmentTypeIndicationCollection;
+            CommitmentTypeIndication commitmentTypeIndication;
+            bool objectReferenceOK;
+            bool retVal;
 
-			return retVal;
-		}
+            retVal = true;
+            commitmentTypeIndicationCollection = this.XadesObject.QualifyingProperties.SignedProperties.SignedDataObjectProperties.CommitmentTypeIndicationCollection;
+            if (commitmentTypeIndicationCollection.Count > 0)
+            {
+                for (int commitmentTypeIndicationCounter = 0; (retVal == true) && (commitmentTypeIndicationCounter < commitmentTypeIndicationCollection.Count); commitmentTypeIndicationCounter++)
+                {
+                    commitmentTypeIndication = commitmentTypeIndicationCollection[commitmentTypeIndicationCounter];
+                    objectReferenceOK = true;
+                    foreach (ObjectReference objectReference in commitmentTypeIndication.ObjectReferenceCollection)
+                    {
+                        objectReferenceOK &= this.CheckObjectReference(objectReference);
+                    }
+                    retVal = objectReferenceOK;
+                }
+                if (retVal == false)
+                {
+                    throw new CryptographicException("At least one ObjectReference in CommitmentTypeIndication did not point to a Reference");
+                }
+            }
 
-		/// <summary>
-		/// Check if the QualifyingProperties Target attribute points to the signature element
-		/// </summary>
-		/// <returns>If the function returns true the check was OK</returns>
-		public virtual bool CheckQualifyingPropertiesTarget()
-		{
-			string qualifyingPropertiesTarget;
-			bool retVal;
+            return retVal;
+        }
 
-			retVal = true;
-			qualifyingPropertiesTarget = this.XadesObject.QualifyingProperties.Target;
-			if (this.Signature.Id == null)
-			{
-				retVal = false;
-			}
-			else
-			{
-				if (qualifyingPropertiesTarget != ("#" + this.Signature.Id))
-				{
-					retVal = false;
-				}
-			}
-			if (retVal == false)
-			{
-				throw new CryptographicException("Qualifying properties target doesn't point to signature element or signature element doesn't have an Id");
-			}
+        /// <summary>
+        /// Check if at least ClaimedRoles or CertifiedRoles present in SignerRole
+        /// </summary>
+        /// <returns>If the function returns true the check was OK</returns>
+        public virtual bool CheckIfClaimedRolesOrCertifiedRolesPresentInSignerRole()
+        {
+            SignerRole signerRole;
+            bool retVal;
 
-			return retVal;
-		}
+            retVal = false;
+            signerRole = this.XadesObject.QualifyingProperties.SignedProperties.SignedSignatureProperties.SignerRole;
+            if (signerRole != null)
+            {
+                if (signerRole.CertifiedRoles != null)
+                {
+                    retVal = (signerRole.CertifiedRoles.CertifiedRoleCollection.Count > 0);
+                }
+                if (retVal == false)
+                {
+                    if (signerRole.ClaimedRoles != null)
+                    {
+                        retVal = (signerRole.ClaimedRoles.ClaimedRoleCollection.Count > 0);
+                    }
+                }
+                if (retVal == false)
+                {
+                    throw new CryptographicException("SignerRole element must contain at least one CertifiedRole or ClaimedRole element");
+                }
+            }
+            else
+            {
+                retVal = true;
+            }
 
-		/// <summary>
-		/// Check that QualifyingProperties occur in one Object, check that there is only one QualifyingProperties and that signed properties occur in one QualifyingProperties element
-		/// </summary>
-		/// <returns>If the function returns true the check was OK</returns>
-		public virtual bool CheckQualifyingProperties()
-		{
-			XmlElement signatureElement;
-			XmlNamespaceManager xmlNamespaceManager;
-			XmlNodeList xmlNodeList;
+            return retVal;
+        }
 
-			signatureElement = this.GetXml();
-			xmlNamespaceManager = new XmlNamespaceManager(signatureElement.OwnerDocument.NameTable);
-			xmlNamespaceManager.AddNamespace("ds", SignedXml.XmlDsigNamespaceUrl);
-			xmlNamespaceManager.AddNamespace("xsd", XadesSignedXml.XadesNamespaceUri);
-			xmlNodeList = signatureElement.SelectNodes("ds:Object/xsd:QualifyingProperties", xmlNamespaceManager);
-			if (xmlNodeList.Count > 1)
-			{
-				throw new CryptographicException("More than one Object contains a QualifyingProperties element");
-			}
+        /// <summary>
+        /// Check if HashDataInfo of SignatureTimeStamp points to SignatureValue
+        /// </summary>
+        /// <returns>If the function returns true the check was OK</returns>
+        public virtual bool CheckHashDataInfoOfSignatureTimeStampPointsToSignatureValue()
+        {
+            SignatureTimeStampCollection signatureTimeStampCollection;
+            bool hashDataInfoPointsToSignatureValue;
+            TimeStamp timeStamp;
+            int timeStampCounter;
+            bool retVal;
 
-			return true;
-		}
+            hashDataInfoPointsToSignatureValue = true;
+            retVal = false;
+            signatureTimeStampCollection = this.XadesObject.QualifyingProperties.UnsignedProperties.UnsignedSignatureProperties.SignatureTimeStampCollection;
+            if (signatureTimeStampCollection.Count > 0)
+            {
+                for (timeStampCounter = 0; hashDataInfoPointsToSignatureValue && (timeStampCounter < signatureTimeStampCollection.Count); timeStampCounter++)
+                {
+                    timeStamp = signatureTimeStampCollection[timeStampCounter];
+                    hashDataInfoPointsToSignatureValue &= this.CheckHashDataInfoPointsToSignatureValue(timeStamp);
+                }
+                if (hashDataInfoPointsToSignatureValue == false)
+                {
+                    throw new CryptographicException("HashDataInfo of SignatureTimeStamp doesn't point to signature value element");
+                }
+            }
+            retVal = true;
 
-		/// <summary>
-		/// Check if all required HashDataInfos are present on SigAndRefsTimeStamp
-		/// </summary>
-		/// <returns>If the function returns true the check was OK</returns>
-		public virtual bool CheckSigAndRefsTimeStampHashDataInfos()
-		{
-			SignatureTimeStampCollection signatureTimeStampCollection;
-			TimeStamp timeStamp;
-			bool allRequiredhashDataInfosFound;
-			bool retVal;
+            return retVal;
+        }
 
-			retVal = true;
-			signatureTimeStampCollection = this.XadesObject.QualifyingProperties.UnsignedProperties.UnsignedSignatureProperties.SigAndRefsTimeStampCollection;
-			if (signatureTimeStampCollection.Count > 0)
-			{
-				allRequiredhashDataInfosFound = true;
-				for (int timeStampCounter = 0; allRequiredhashDataInfosFound && (timeStampCounter < signatureTimeStampCollection.Count); timeStampCounter++)
-				{
-					timeStamp = signatureTimeStampCollection[timeStampCounter];
-					allRequiredhashDataInfosFound &= this.CheckHashDataInfosOfSigAndRefsTimeStamp(timeStamp);
-				}
-				if (allRequiredhashDataInfosFound == false)
-				{
-					throw new CryptographicException("At least one required HashDataInfo is missing in a SigAndRefsTimeStamp element");
-				}
-			}
+        /// <summary>
+        /// Check if the QualifyingProperties Target attribute points to the signature element
+        /// </summary>
+        /// <returns>If the function returns true the check was OK</returns>
+        public virtual bool CheckQualifyingPropertiesTarget()
+        {
+            string qualifyingPropertiesTarget;
+            bool retVal;
 
-			return retVal;
-		}
-		
-		/// <summary>
-		/// Check if all required HashDataInfos are present on RefsOnlyTimeStamp
-		/// </summary>
-		/// <returns>If the function returns true the check was OK</returns>
-		public virtual bool CheckRefsOnlyTimeStampHashDataInfos()
-		{
-			SignatureTimeStampCollection signatureTimeStampCollection;
-			TimeStamp timeStamp;
-			bool allRequiredhashDataInfosFound;
-			bool retVal;
+            retVal = true;
+            qualifyingPropertiesTarget = this.XadesObject.QualifyingProperties.Target;
+            if (this.Signature.Id == null)
+            {
+                retVal = false;
+            }
+            else
+            {
+                if (qualifyingPropertiesTarget != ("#" + this.Signature.Id))
+                {
+                    retVal = false;
+                }
+            }
+            if (retVal == false)
+            {
+                throw new CryptographicException("Qualifying properties target doesn't point to signature element or signature element doesn't have an Id");
+            }
 
-			retVal = true;
-			signatureTimeStampCollection = this.XadesObject.QualifyingProperties.UnsignedProperties.UnsignedSignatureProperties.RefsOnlyTimeStampCollection;
-			if (signatureTimeStampCollection.Count > 0)
-			{
-				allRequiredhashDataInfosFound = true;
-				for (int timeStampCounter = 0; allRequiredhashDataInfosFound && (timeStampCounter < signatureTimeStampCollection.Count); timeStampCounter++)
-				{
-					timeStamp = signatureTimeStampCollection[timeStampCounter];
-					allRequiredhashDataInfosFound &= this.CheckHashDataInfosOfRefsOnlyTimeStamp(timeStamp);
-				}
-				if (allRequiredhashDataInfosFound == false)
-				{
-					throw new CryptographicException("At least one required HashDataInfo is missing in a RefsOnlyTimeStamp element");
-				}
-			}
+            return retVal;
+        }
 
-			return retVal;
-		}
+        /// <summary>
+        /// Check that QualifyingProperties occur in one Object, check that there is only one QualifyingProperties and that signed properties occur in one QualifyingProperties element
+        /// </summary>
+        /// <returns>If the function returns true the check was OK</returns>
+        public virtual bool CheckQualifyingProperties()
+        {
+            XmlElement signatureElement;
+            XmlNamespaceManager xmlNamespaceManager;
+            XmlNodeList xmlNodeList;
 
-		/// <summary>
-		/// Check if all required HashDataInfos are present on ArchiveTimeStamp
-		/// </summary>
-		/// <returns>If the function returns true the check was OK</returns>
-		public virtual bool CheckArchiveTimeStampHashDataInfos()
-		{
-			SignatureTimeStampCollection signatureTimeStampCollection;
-			TimeStamp timeStamp;
-			bool allRequiredhashDataInfosFound;
-			bool retVal;
+            signatureElement = this.GetXml();
+            xmlNamespaceManager = new XmlNamespaceManager(signatureElement.OwnerDocument.NameTable);
+            xmlNamespaceManager.AddNamespace("ds", SignedXml.XmlDsigNamespaceUrl);
+            xmlNamespaceManager.AddNamespace("xsd", XadesSignedXml.XadesNamespaceUri);
+            xmlNodeList = signatureElement.SelectNodes("ds:Object/xsd:QualifyingProperties", xmlNamespaceManager);
+            if (xmlNodeList.Count > 1)
+            {
+                throw new CryptographicException("More than one Object contains a QualifyingProperties element");
+            }
 
-			retVal = true;
-			signatureTimeStampCollection = this.XadesObject.QualifyingProperties.UnsignedProperties.UnsignedSignatureProperties.ArchiveTimeStampCollection;
-			if (signatureTimeStampCollection.Count > 0)
-			{
-				allRequiredhashDataInfosFound = true;
-				for (int timeStampCounter = 0; allRequiredhashDataInfosFound && (timeStampCounter < signatureTimeStampCollection.Count); timeStampCounter++)
-				{
-					timeStamp = signatureTimeStampCollection[timeStampCounter];
-					allRequiredhashDataInfosFound &= this.CheckHashDataInfosOfArchiveTimeStamp(timeStamp);
-				}
-				if (allRequiredhashDataInfosFound == false)
-				{
-					throw new CryptographicException("At least one required HashDataInfo is missing in a ArchiveTimeStamp element");
-				}
-			}
+            return true;
+        }
 
-			return retVal;
-		}
+        /// <summary>
+        /// Check if all required HashDataInfos are present on SigAndRefsTimeStamp
+        /// </summary>
+        /// <returns>If the function returns true the check was OK</returns>
+        public virtual bool CheckSigAndRefsTimeStampHashDataInfos()
+        {
+            SignatureTimeStampCollection signatureTimeStampCollection;
+            TimeStamp timeStamp;
+            bool allRequiredhashDataInfosFound;
+            bool retVal;
 
-		/// <summary>
-		/// Check if a XAdES-C signature is also a XAdES-T signature
-		/// </summary>
-		/// <returns>If the function returns true the check was OK</returns>
-		public virtual bool CheckXadesCIsXadesT()
-		{
-			UnsignedSignatureProperties unsignedSignatureProperties;
-			bool retVal;
+            retVal = true;
+            signatureTimeStampCollection = this.XadesObject.QualifyingProperties.UnsignedProperties.UnsignedSignatureProperties.SigAndRefsTimeStampCollection;
+            if (signatureTimeStampCollection.Count > 0)
+            {
+                allRequiredhashDataInfosFound = true;
+                for (int timeStampCounter = 0; allRequiredhashDataInfosFound && (timeStampCounter < signatureTimeStampCollection.Count); timeStampCounter++)
+                {
+                    timeStamp = signatureTimeStampCollection[timeStampCounter];
+                    allRequiredhashDataInfosFound &= this.CheckHashDataInfosOfSigAndRefsTimeStamp(timeStamp);
+                }
+                if (allRequiredhashDataInfosFound == false)
+                {
+                    throw new CryptographicException("At least one required HashDataInfo is missing in a SigAndRefsTimeStamp element");
+                }
+            }
 
-			retVal = true;
-			unsignedSignatureProperties = this.XadesObject.QualifyingProperties.UnsignedProperties.UnsignedSignatureProperties;
-			if (((unsignedSignatureProperties.CompleteCertificateRefs != null) && (unsignedSignatureProperties.CompleteCertificateRefs.HasChanged()))
-				|| ((unsignedSignatureProperties.CompleteCertificateRefs != null) && (unsignedSignatureProperties.CompleteCertificateRefs.HasChanged())))
-			{
-				if (unsignedSignatureProperties.SignatureTimeStampCollection.Count == 0)
-				{
-					throw new CryptographicException("XAdES-C signature should also contain a SignatureTimeStamp element");
-				}
-			}
+            return retVal;
+        }
 
-			return retVal;
-		}
+        /// <summary>
+        /// Check if all required HashDataInfos are present on RefsOnlyTimeStamp
+        /// </summary>
+        /// <returns>If the function returns true the check was OK</returns>
+        public virtual bool CheckRefsOnlyTimeStampHashDataInfos()
+        {
+            SignatureTimeStampCollection signatureTimeStampCollection;
+            TimeStamp timeStamp;
+            bool allRequiredhashDataInfosFound;
+            bool retVal;
 
-		/// <summary>
-		/// Check if a XAdES-XL signature is also a XAdES-X signature
-		/// </summary>
-		/// <returns>If the function returns true the check was OK</returns>
-		public virtual bool CheckXadesXLIsXadesX()
-		{
-			UnsignedSignatureProperties unsignedSignatureProperties;
-			bool retVal;
+            retVal = true;
+            signatureTimeStampCollection = this.XadesObject.QualifyingProperties.UnsignedProperties.UnsignedSignatureProperties.RefsOnlyTimeStampCollection;
+            if (signatureTimeStampCollection.Count > 0)
+            {
+                allRequiredhashDataInfosFound = true;
+                for (int timeStampCounter = 0; allRequiredhashDataInfosFound && (timeStampCounter < signatureTimeStampCollection.Count); timeStampCounter++)
+                {
+                    timeStamp = signatureTimeStampCollection[timeStampCounter];
+                    allRequiredhashDataInfosFound &= this.CheckHashDataInfosOfRefsOnlyTimeStamp(timeStamp);
+                }
+                if (allRequiredhashDataInfosFound == false)
+                {
+                    throw new CryptographicException("At least one required HashDataInfo is missing in a RefsOnlyTimeStamp element");
+                }
+            }
 
-			retVal = true;
-			unsignedSignatureProperties = this.XadesObject.QualifyingProperties.UnsignedProperties.UnsignedSignatureProperties;
-			if (((unsignedSignatureProperties.CertificateValues != null) && (unsignedSignatureProperties.CertificateValues.HasChanged()))
-				|| ((unsignedSignatureProperties.RevocationValues != null) && (unsignedSignatureProperties.RevocationValues.HasChanged())))
-			{
-				if ((unsignedSignatureProperties.SigAndRefsTimeStampCollection.Count == 0) && (unsignedSignatureProperties.RefsOnlyTimeStampCollection.Count == 0))
-				{
-					throw new CryptographicException("XAdES-XL signature should also contain a XAdES-X element");
-				}
-			}
+            return retVal;
+        }
 
-			return retVal;
-		}
+        /// <summary>
+        /// Check if all required HashDataInfos are present on ArchiveTimeStamp
+        /// </summary>
+        /// <returns>If the function returns true the check was OK</returns>
+        public virtual bool CheckArchiveTimeStampHashDataInfos()
+        {
+            SignatureTimeStampCollection signatureTimeStampCollection;
+            TimeStamp timeStamp;
+            bool allRequiredhashDataInfosFound;
+            bool retVal;
 
-		/// <summary>
-		/// Check if CertificateValues match CertificateRefs
-		/// </summary>
-		/// <returns>If the function returns true the check was OK</returns>
-		public virtual bool CheckCertificateValuesMatchCertificateRefs()
-		{
-			SHA1Managed sha1Managed;
-			UnsignedSignatureProperties unsignedSignatureProperties;
-			ArrayList certDigests;
-			byte[] certDigest;
-			int index;
-			bool retVal;
+            retVal = true;
+            signatureTimeStampCollection = this.XadesObject.QualifyingProperties.UnsignedProperties.UnsignedSignatureProperties.ArchiveTimeStampCollection;
+            if (signatureTimeStampCollection.Count > 0)
+            {
+                allRequiredhashDataInfosFound = true;
+                for (int timeStampCounter = 0; allRequiredhashDataInfosFound && (timeStampCounter < signatureTimeStampCollection.Count); timeStampCounter++)
+                {
+                    timeStamp = signatureTimeStampCollection[timeStampCounter];
+                    allRequiredhashDataInfosFound &= this.CheckHashDataInfosOfArchiveTimeStamp(timeStamp);
+                }
+                if (allRequiredhashDataInfosFound == false)
+                {
+                    throw new CryptographicException("At least one required HashDataInfo is missing in a ArchiveTimeStamp element");
+                }
+            }
 
-			//TODO: Similar test should be done for XML based (Other) certificates, but as the check needed is not known, there is no implementation
-			retVal = true;
-			unsignedSignatureProperties = this.XadesObject.QualifyingProperties.UnsignedProperties.UnsignedSignatureProperties;
-			if ((unsignedSignatureProperties.CompleteCertificateRefs != null) && (unsignedSignatureProperties.CompleteCertificateRefs.CertRefs != null) &&
-				(unsignedSignatureProperties.CertificateValues != null))
-			{
-				certDigests = new ArrayList();
-				foreach (Cert cert in unsignedSignatureProperties.CompleteCertificateRefs.CertRefs.CertCollection)
-				{
-					certDigests.Add(Convert.ToBase64String(cert.CertDigest.DigestValue));
-				}
-				certDigests.Sort();
-				foreach (EncapsulatedX509Certificate encapsulatedX509Certificate in unsignedSignatureProperties.CertificateValues.EncapsulatedX509CertificateCollection)
-				{
-					sha1Managed = new SHA1Managed();
-					certDigest = sha1Managed.ComputeHash(encapsulatedX509Certificate.PkiData);
-					index = certDigests.BinarySearch(Convert.ToBase64String(certDigest));
-					if (index >= 0)
-					{
-						certDigests.RemoveAt(index);
-					}
-				}
-				if (certDigests.Count != 0)
-				{
-					throw new CryptographicException("Not all CertificateRefs correspond to CertificateValues");
-				}
-			}
+            return retVal;
+        }
+
+        /// <summary>
+        /// Check if a XAdES-C signature is also a XAdES-T signature
+        /// </summary>
+        /// <returns>If the function returns true the check was OK</returns>
+        public virtual bool CheckXadesCIsXadesT()
+        {
+            UnsignedSignatureProperties unsignedSignatureProperties;
+            bool retVal;
+
+            retVal = true;
+            unsignedSignatureProperties = this.XadesObject.QualifyingProperties.UnsignedProperties.UnsignedSignatureProperties;
+            if (((unsignedSignatureProperties.CompleteCertificateRefs != null) && (unsignedSignatureProperties.CompleteCertificateRefs.HasChanged()))
+                || ((unsignedSignatureProperties.CompleteCertificateRefs != null) && (unsignedSignatureProperties.CompleteCertificateRefs.HasChanged())))
+            {
+                if (unsignedSignatureProperties.SignatureTimeStampCollection.Count == 0)
+                {
+                    throw new CryptographicException("XAdES-C signature should also contain a SignatureTimeStamp element");
+                }
+            }
+
+            return retVal;
+        }
+
+        /// <summary>
+        /// Check if a XAdES-XL signature is also a XAdES-X signature
+        /// </summary>
+        /// <returns>If the function returns true the check was OK</returns>
+        public virtual bool CheckXadesXLIsXadesX()
+        {
+            UnsignedSignatureProperties unsignedSignatureProperties;
+            bool retVal;
+
+            retVal = true;
+            unsignedSignatureProperties = this.XadesObject.QualifyingProperties.UnsignedProperties.UnsignedSignatureProperties;
+            if (((unsignedSignatureProperties.CertificateValues != null) && (unsignedSignatureProperties.CertificateValues.HasChanged()))
+                || ((unsignedSignatureProperties.RevocationValues != null) && (unsignedSignatureProperties.RevocationValues.HasChanged())))
+            {
+                if ((unsignedSignatureProperties.SigAndRefsTimeStampCollection.Count == 0) && (unsignedSignatureProperties.RefsOnlyTimeStampCollection.Count == 0))
+                {
+                    throw new CryptographicException("XAdES-XL signature should also contain a XAdES-X element");
+                }
+            }
+
+            return retVal;
+        }
+
+        /// <summary>
+        /// Check if CertificateValues match CertificateRefs
+        /// </summary>
+        /// <returns>If the function returns true the check was OK</returns>
+        public virtual bool CheckCertificateValuesMatchCertificateRefs()
+        {
+            SHA1Managed sha1Managed;
+            UnsignedSignatureProperties unsignedSignatureProperties;
+            ArrayList certDigests;
+            byte[] certDigest;
+            int index;
+            bool retVal;
+
+            //TODO: Similar test should be done for XML based (Other) certificates, but as the check needed is not known, there is no implementation
+            retVal = true;
+            unsignedSignatureProperties = this.XadesObject.QualifyingProperties.UnsignedProperties.UnsignedSignatureProperties;
+            if ((unsignedSignatureProperties.CompleteCertificateRefs != null) && (unsignedSignatureProperties.CompleteCertificateRefs.CertRefs != null) &&
+                (unsignedSignatureProperties.CertificateValues != null))
+            {
+                certDigests = new ArrayList();
+                foreach (Cert cert in unsignedSignatureProperties.CompleteCertificateRefs.CertRefs.CertCollection)
+                {
+                    certDigests.Add(Convert.ToBase64String(cert.CertDigest.DigestValue));
+                }
+                certDigests.Sort();
+                foreach (EncapsulatedX509Certificate encapsulatedX509Certificate in unsignedSignatureProperties.CertificateValues.EncapsulatedX509CertificateCollection)
+                {
+                    sha1Managed = new SHA1Managed();
+                    certDigest = sha1Managed.ComputeHash(encapsulatedX509Certificate.PkiData);
+                    index = certDigests.BinarySearch(Convert.ToBase64String(certDigest));
+                    if (index >= 0)
+                    {
+                        certDigests.RemoveAt(index);
+                    }
+                }
+                if (certDigests.Count != 0)
+                {
+                    throw new CryptographicException("Not all CertificateRefs correspond to CertificateValues");
+                }
+            }
 
 
-			return retVal;
-		}
+            return retVal;
+        }
 
-		/// <summary>
-		/// Check if RevocationValues match RevocationRefs
-		/// </summary>
-		/// <returns>If the function returns true the check was OK</returns>
-		public virtual bool CheckRevocationValuesMatchRevocationRefs()
-		{
-			SHA1Managed sha1Managed;
-			UnsignedSignatureProperties unsignedSignatureProperties;
-			ArrayList crlDigests;
-			byte[] crlDigest;
-			int index;
-			bool retVal;
+        /// <summary>
+        /// Check if RevocationValues match RevocationRefs
+        /// </summary>
+        /// <returns>If the function returns true the check was OK</returns>
+        public virtual bool CheckRevocationValuesMatchRevocationRefs()
+        {
+            SHA1Managed sha1Managed;
+            UnsignedSignatureProperties unsignedSignatureProperties;
+            ArrayList crlDigests;
+            byte[] crlDigest;
+            int index;
+            bool retVal;
 
-			//TODO: Similar test should be done for XML based (Other) revocation information and OCSP responses, but to keep the library independent of these technologies, this test is left to appliactions using the library
-			retVal = true;
-			unsignedSignatureProperties = this.XadesObject.QualifyingProperties.UnsignedProperties.UnsignedSignatureProperties;
-			if ((unsignedSignatureProperties.CompleteRevocationRefs != null) && (unsignedSignatureProperties.CompleteRevocationRefs.CRLRefs != null) &&
-				(unsignedSignatureProperties.RevocationValues != null))
-			{
-				crlDigests = new ArrayList();
-				foreach (CRLRef crlRef in unsignedSignatureProperties.CompleteRevocationRefs.CRLRefs.CRLRefCollection)
-				{
-					crlDigests.Add(Convert.ToBase64String(crlRef.CertDigest.DigestValue));
-				}
-				crlDigests.Sort();
-				foreach (CRLValue crlValue in unsignedSignatureProperties.RevocationValues.CRLValues.CRLValueCollection)
-				{
-					sha1Managed = new SHA1Managed();
-					crlDigest = sha1Managed.ComputeHash(crlValue.PkiData);
-					index = crlDigests.BinarySearch(Convert.ToBase64String(crlDigest));
-					if (index >= 0)
-					{
-						crlDigests.RemoveAt(index);
-					}
-				}
-				if (crlDigests.Count != 0)
-				{
-					throw new CryptographicException("Not all RevocationRefs correspond to RevocationValues");
-				}
-			}
+            //TODO: Similar test should be done for XML based (Other) revocation information and OCSP responses, but to keep the library independent of these technologies, this test is left to appliactions using the library
+            retVal = true;
+            unsignedSignatureProperties = this.XadesObject.QualifyingProperties.UnsignedProperties.UnsignedSignatureProperties;
+            if ((unsignedSignatureProperties.CompleteRevocationRefs != null) && (unsignedSignatureProperties.CompleteRevocationRefs.CRLRefs != null) &&
+                (unsignedSignatureProperties.RevocationValues != null))
+            {
+                crlDigests = new ArrayList();
+                foreach (CRLRef crlRef in unsignedSignatureProperties.CompleteRevocationRefs.CRLRefs.CRLRefCollection)
+                {
+                    crlDigests.Add(Convert.ToBase64String(crlRef.CertDigest.DigestValue));
+                }
+                crlDigests.Sort();
+                foreach (CRLValue crlValue in unsignedSignatureProperties.RevocationValues.CRLValues.CRLValueCollection)
+                {
+                    sha1Managed = new SHA1Managed();
+                    crlDigest = sha1Managed.ComputeHash(crlValue.PkiData);
+                    index = crlDigests.BinarySearch(Convert.ToBase64String(crlDigest));
+                    if (index >= 0)
+                    {
+                        crlDigests.RemoveAt(index);
+                    }
+                }
+                if (crlDigests.Count != 0)
+                {
+                    throw new CryptographicException("Not all RevocationRefs correspond to RevocationValues");
+                }
+            }
 
-			return retVal;
-		}
-		#endregion
+            return retVal;
+        }
+        #endregion
 
-		#endregion
+        #endregion
 
         #region Fix to add a namespace prefix for all XmlDsig nodes
 
@@ -1531,237 +1532,237 @@ namespace Microsoft.Xades
 
         #region Private methods
 
-		private XmlElement GetXadesObjectElement(XmlElement signatureElement)
-		{
-			XmlElement retVal = null;
+        private XmlElement GetXadesObjectElement(XmlElement signatureElement)
+        {
+            XmlElement retVal = null;
 
             XmlNamespaceManager xmlNamespaceManager = new XmlNamespaceManager(signatureElement.OwnerDocument.NameTable); //Create an XmlNamespaceManager to resolve namespace
-			xmlNamespaceManager.AddNamespace("ds", SignedXml.XmlDsigNamespaceUrl);
-			xmlNamespaceManager.AddNamespace("xsd", XadesSignedXml.XadesNamespaceUri);
+            xmlNamespaceManager.AddNamespace("ds", SignedXml.XmlDsigNamespaceUrl);
+            xmlNamespaceManager.AddNamespace("xsd", XadesSignedXml.XadesNamespaceUri);
 
             XmlNodeList xmlNodeList = signatureElement.SelectNodes("ds:Object/xsd:QualifyingProperties", xmlNamespaceManager);
-			if (xmlNodeList.Count > 0)
-			{
+            if (xmlNodeList.Count > 0)
+            {
                 retVal = (XmlElement)xmlNodeList.Item(0).ParentNode;
-			}
-			else
-			{
-				retVal = null;
-			}
+            }
+            else
+            {
+                retVal = null;
+            }
 
-			return retVal;
-		}
+            return retVal;
+        }
 
-		private void SetSignatureStandard(XmlElement signatureElement)
-		{
-			if (this.GetXadesObjectElement(signatureElement) != null)
-			{
-				this.signatureStandard = KnownSignatureStandard.Xades;
-			}
-			else
-			{
-				this.signatureStandard = KnownSignatureStandard.XmlDsig;
-			}
-		}
+        private void SetSignatureStandard(XmlElement signatureElement)
+        {
+            if (this.GetXadesObjectElement(signatureElement) != null)
+            {
+                this.signatureStandard = KnownSignatureStandard.Xades;
+            }
+            else
+            {
+                this.signatureStandard = KnownSignatureStandard.XmlDsig;
+            }
+        }
 
-		private System.Security.Cryptography.Xml.DataObject GetXadesDataObject()
-		{
-			System.Security.Cryptography.Xml.DataObject retVal = null;
+        private System.Security.Cryptography.Xml.DataObject GetXadesDataObject()
+        {
+            System.Security.Cryptography.Xml.DataObject retVal = null;
 
-			for (int dataObjectCounter = 0; dataObjectCounter < (this.Signature.ObjectList.Count); dataObjectCounter++)
-			{
-                System.Security.Cryptography.Xml.DataObject  dataObject = (System.Security.Cryptography.Xml.DataObject) this.Signature.ObjectList[dataObjectCounter];
+            for (int dataObjectCounter = 0; dataObjectCounter < (this.Signature.ObjectList.Count); dataObjectCounter++)
+            {
+                System.Security.Cryptography.Xml.DataObject dataObject = (System.Security.Cryptography.Xml.DataObject)this.Signature.ObjectList[dataObjectCounter];
                 XmlElement dataObjectXmlElement = dataObject.GetXml();
                 XmlNamespaceManager xmlNamespaceManager = new XmlNamespaceManager(dataObjectXmlElement.OwnerDocument.NameTable);
-				xmlNamespaceManager.AddNamespace("xsd", XadesSignedXml.XadesNamespaceUri);
+                xmlNamespaceManager.AddNamespace("xsd", XadesSignedXml.XadesNamespaceUri);
                 XmlNodeList xmlNodeList = dataObjectXmlElement.SelectNodes("xsd:QualifyingProperties", xmlNamespaceManager);
-				if (xmlNodeList.Count != 0)
-				{
-					retVal = dataObject;
+                if (xmlNodeList.Count != 0)
+                {
+                    retVal = dataObject;
 
                     break;
-				}
-			}
+                }
+            }
 
-			return retVal;
-		}
+            return retVal;
+        }
 
-		private void SchemaValidationHandler(object sender, ValidationEventArgs validationEventArgs)
-		{
-			this.validationErrorOccurred = true;
-			this.validationErrorDescription += "Validation error:\n";
-			this.validationErrorDescription += "\tSeverity: " + validationEventArgs.Severity.ToString() + "\n";
-			this.validationErrorDescription += "\tMessage: " + validationEventArgs.Message + "\n";
-		}
+        private void SchemaValidationHandler(object sender, ValidationEventArgs validationEventArgs)
+        {
+            this.validationErrorOccurred = true;
+            this.validationErrorDescription += "Validation error:\n";
+            this.validationErrorDescription += "\tSeverity: " + validationEventArgs.Severity.ToString() + "\n";
+            this.validationErrorDescription += "\tMessage: " + validationEventArgs.Message + "\n";
+        }
 
-		private void XmlValidationHandler(object sender, ValidationEventArgs validationEventArgs)
-		{
-			if (validationEventArgs.Severity != XmlSeverityType.Warning)
-			{
-				this.validationErrorOccurred = true;
-				this.validationErrorDescription += "Validation error:\n";
-				this.validationErrorDescription += "\tSeverity: " + validationEventArgs.Severity.ToString() + "\n";
-				this.validationErrorDescription += "\tMessage: " + validationEventArgs.Message + "\n";
-			}
-		}
+        private void XmlValidationHandler(object sender, ValidationEventArgs validationEventArgs)
+        {
+            if (validationEventArgs.Severity != XmlSeverityType.Warning)
+            {
+                this.validationErrorOccurred = true;
+                this.validationErrorDescription += "Validation error:\n";
+                this.validationErrorDescription += "\tSeverity: " + validationEventArgs.Severity.ToString() + "\n";
+                this.validationErrorDescription += "\tMessage: " + validationEventArgs.Message + "\n";
+            }
+        }
 
-		private bool CheckHashDataInfosForTimeStamp(TimeStamp timeStamp)
-		{
-			bool retVal = true;
+        private bool CheckHashDataInfosForTimeStamp(TimeStamp timeStamp)
+        {
+            bool retVal = true;
 
-			for (int referenceCounter = 0; retVal == true && (referenceCounter < this.SignedInfo.References.Count); referenceCounter++)
-			{
-				string referenceId = ((Reference) this.SignedInfo.References[referenceCounter]).Id;
-				string referenceUri = ((Reference) this.SignedInfo.References[referenceCounter]).Uri;
-				if (referenceUri != ("#" + this.XadesObject.QualifyingProperties.SignedProperties.Id))
-				{
+            for (int referenceCounter = 0; retVal == true && (referenceCounter < this.SignedInfo.References.Count); referenceCounter++)
+            {
+                string referenceId = ((Reference)this.SignedInfo.References[referenceCounter]).Id;
+                string referenceUri = ((Reference)this.SignedInfo.References[referenceCounter]).Uri;
+                if (referenceUri != ("#" + this.XadesObject.QualifyingProperties.SignedProperties.Id))
+                {
                     bool hashDataInfoFound = false;
-					for (int hashDataInfoCounter = 0; hashDataInfoFound == false && (hashDataInfoCounter < timeStamp.HashDataInfoCollection.Count); hashDataInfoCounter++)
-					{
+                    for (int hashDataInfoCounter = 0; hashDataInfoFound == false && (hashDataInfoCounter < timeStamp.HashDataInfoCollection.Count); hashDataInfoCounter++)
+                    {
                         HashDataInfo hashDataInfo = timeStamp.HashDataInfoCollection[hashDataInfoCounter];
-						hashDataInfoFound = (("#" + referenceId) == hashDataInfo.UriAttribute);
-					}
-					retVal = hashDataInfoFound;
-				}
-			}
+                        hashDataInfoFound = (("#" + referenceId) == hashDataInfo.UriAttribute);
+                    }
+                    retVal = hashDataInfoFound;
+                }
+            }
 
-			return retVal;
-		}
+            return retVal;
+        }
 
-		private bool CheckHashDataInfosExist(TimeStamp timeStamp)
-		{
-			bool retVal = true;
+        private bool CheckHashDataInfosExist(TimeStamp timeStamp)
+        {
+            bool retVal = true;
 
-			for (int hashDataInfoCounter = 0; retVal == true && (hashDataInfoCounter < timeStamp.HashDataInfoCollection.Count); hashDataInfoCounter++)
-			{
+            for (int hashDataInfoCounter = 0; retVal == true && (hashDataInfoCounter < timeStamp.HashDataInfoCollection.Count); hashDataInfoCounter++)
+            {
                 HashDataInfo hashDataInfo = timeStamp.HashDataInfoCollection[hashDataInfoCounter];
-				bool referenceFound = false;
+                bool referenceFound = false;
                 string referenceId;
 
                 for (int referenceCounter = 0; referenceFound == false && (referenceCounter < this.SignedInfo.References.Count); referenceCounter++)
-				{
-					referenceId = ((Reference) this.SignedInfo.References[referenceCounter]).Id;
-					if (("#" + referenceId) == hashDataInfo.UriAttribute)
-					{
-						referenceFound = true;
-					}
-				}
-				retVal = referenceFound;
-			}
+                {
+                    referenceId = ((Reference)this.SignedInfo.References[referenceCounter]).Id;
+                    if (("#" + referenceId) == hashDataInfo.UriAttribute)
+                    {
+                        referenceFound = true;
+                    }
+                }
+                retVal = referenceFound;
+            }
 
-			return retVal;
-		}
+            return retVal;
+        }
 
 
-		private bool CheckObjectReference(ObjectReference objectReference)
-		{
-			bool retVal = false;
-			
-			for (int referenceCounter = 0; retVal == false && (referenceCounter < this.SignedInfo.References.Count); referenceCounter++)
-			{
-				string referenceId = ((Reference)this.SignedInfo.References[referenceCounter]).Id;
-				if (("#" + referenceId) == objectReference.ObjectReferenceUri)
-				{
-					retVal = true;
-				}
-			}
+        private bool CheckObjectReference(ObjectReference objectReference)
+        {
+            bool retVal = false;
 
-			return retVal;
-		}
+            for (int referenceCounter = 0; retVal == false && (referenceCounter < this.SignedInfo.References.Count); referenceCounter++)
+            {
+                string referenceId = ((Reference)this.SignedInfo.References[referenceCounter]).Id;
+                if (("#" + referenceId) == objectReference.ObjectReferenceUri)
+                {
+                    retVal = true;
+                }
+            }
 
-		private bool CheckHashDataInfoPointsToSignatureValue(TimeStamp timeStamp)
-		{
-			bool retVal = true;
-			foreach (HashDataInfo hashDataInfo in timeStamp.HashDataInfoCollection)
-			{
-				retVal &= (hashDataInfo.UriAttribute == ("#" + this.signatureValueId));
-			}
+            return retVal;
+        }
 
-			return retVal;
-		}
+        private bool CheckHashDataInfoPointsToSignatureValue(TimeStamp timeStamp)
+        {
+            bool retVal = true;
+            foreach (HashDataInfo hashDataInfo in timeStamp.HashDataInfoCollection)
+            {
+                retVal &= (hashDataInfo.UriAttribute == ("#" + this.signatureValueId));
+            }
 
-		private bool CheckHashDataInfosOfSigAndRefsTimeStamp(TimeStamp timeStamp)
-		{
-			UnsignedSignatureProperties unsignedSignatureProperties;
+            return retVal;
+        }
+
+        private bool CheckHashDataInfosOfSigAndRefsTimeStamp(TimeStamp timeStamp)
+        {
+            UnsignedSignatureProperties unsignedSignatureProperties;
             bool signatureValueHashDataInfoFound = false;
             bool allSignatureTimeStampHashDataInfosFound = false;
             bool completeCertificateRefsHashDataInfoFound = false;
             bool completeRevocationRefsHashDataInfoFound = false;
 
             ArrayList signatureTimeStampIds = new ArrayList();
-			
-			bool retVal = true;
 
-			unsignedSignatureProperties = this.XadesObject.QualifyingProperties.UnsignedProperties.UnsignedSignatureProperties;
-			
-			foreach (TimeStamp signatureTimeStamp in unsignedSignatureProperties.SignatureTimeStampCollection)
-			{
-				signatureTimeStampIds.Add("#" + signatureTimeStamp.EncapsulatedTimeStamp.Id);
-			}
-			signatureTimeStampIds.Sort();
-			foreach (HashDataInfo hashDataInfo in timeStamp.HashDataInfoCollection)
-			{
-				if (hashDataInfo.UriAttribute == "#" + this.signatureValueId)
-				{
-					signatureValueHashDataInfoFound = true;
-				}
+            bool retVal = true;
+
+            unsignedSignatureProperties = this.XadesObject.QualifyingProperties.UnsignedProperties.UnsignedSignatureProperties;
+
+            foreach (TimeStamp signatureTimeStamp in unsignedSignatureProperties.SignatureTimeStampCollection)
+            {
+                signatureTimeStampIds.Add("#" + signatureTimeStamp.EncapsulatedTimeStamp.Id);
+            }
+            signatureTimeStampIds.Sort();
+            foreach (HashDataInfo hashDataInfo in timeStamp.HashDataInfoCollection)
+            {
+                if (hashDataInfo.UriAttribute == "#" + this.signatureValueId)
+                {
+                    signatureValueHashDataInfoFound = true;
+                }
                 int signatureTimeStampIdIndex = signatureTimeStampIds.BinarySearch(hashDataInfo.UriAttribute);
-				if (signatureTimeStampIdIndex >= 0)
-				{
-					signatureTimeStampIds.RemoveAt(signatureTimeStampIdIndex);
-				}
-				if (hashDataInfo.UriAttribute == "#" + unsignedSignatureProperties.CompleteCertificateRefs.Id)
-				{
-					completeCertificateRefsHashDataInfoFound = true;
-				}
-				if (hashDataInfo.UriAttribute == "#" + unsignedSignatureProperties.CompleteRevocationRefs.Id)
-				{
-					completeRevocationRefsHashDataInfoFound = true;
-				}
-			}
-			if (signatureTimeStampIds.Count == 0)
-			{
-				allSignatureTimeStampHashDataInfosFound = true;
-			}
-			retVal = signatureValueHashDataInfoFound && allSignatureTimeStampHashDataInfosFound && completeCertificateRefsHashDataInfoFound && completeRevocationRefsHashDataInfoFound;
+                if (signatureTimeStampIdIndex >= 0)
+                {
+                    signatureTimeStampIds.RemoveAt(signatureTimeStampIdIndex);
+                }
+                if (hashDataInfo.UriAttribute == "#" + unsignedSignatureProperties.CompleteCertificateRefs.Id)
+                {
+                    completeCertificateRefsHashDataInfoFound = true;
+                }
+                if (hashDataInfo.UriAttribute == "#" + unsignedSignatureProperties.CompleteRevocationRefs.Id)
+                {
+                    completeRevocationRefsHashDataInfoFound = true;
+                }
+            }
+            if (signatureTimeStampIds.Count == 0)
+            {
+                allSignatureTimeStampHashDataInfosFound = true;
+            }
+            retVal = signatureValueHashDataInfoFound && allSignatureTimeStampHashDataInfosFound && completeCertificateRefsHashDataInfoFound && completeRevocationRefsHashDataInfoFound;
 
-			return retVal;
-		}
+            return retVal;
+        }
 
-		private bool CheckHashDataInfosOfRefsOnlyTimeStamp(TimeStamp timeStamp)
-		{
-			UnsignedSignatureProperties unsignedSignatureProperties;
-			bool completeCertificateRefsHashDataInfoFound;
-			bool completeRevocationRefsHashDataInfoFound;
-			bool retVal;
+        private bool CheckHashDataInfosOfRefsOnlyTimeStamp(TimeStamp timeStamp)
+        {
+            UnsignedSignatureProperties unsignedSignatureProperties;
+            bool completeCertificateRefsHashDataInfoFound;
+            bool completeRevocationRefsHashDataInfoFound;
+            bool retVal;
 
-			completeCertificateRefsHashDataInfoFound = false;
-			completeRevocationRefsHashDataInfoFound = false;
-			retVal = true;
+            completeCertificateRefsHashDataInfoFound = false;
+            completeRevocationRefsHashDataInfoFound = false;
+            retVal = true;
 
-			unsignedSignatureProperties = this.XadesObject.QualifyingProperties.UnsignedProperties.UnsignedSignatureProperties;
-			foreach (HashDataInfo hashDataInfo in timeStamp.HashDataInfoCollection)
-			{
-				if (hashDataInfo.UriAttribute == "#" + unsignedSignatureProperties.CompleteCertificateRefs.Id)
-				{
-					completeCertificateRefsHashDataInfoFound = true;
-				}
-				if (hashDataInfo.UriAttribute == "#" + unsignedSignatureProperties.CompleteRevocationRefs.Id)
-				{
-					completeRevocationRefsHashDataInfoFound = true;
-				}
-			}
-			retVal = completeCertificateRefsHashDataInfoFound && completeRevocationRefsHashDataInfoFound;
+            unsignedSignatureProperties = this.XadesObject.QualifyingProperties.UnsignedProperties.UnsignedSignatureProperties;
+            foreach (HashDataInfo hashDataInfo in timeStamp.HashDataInfoCollection)
+            {
+                if (hashDataInfo.UriAttribute == "#" + unsignedSignatureProperties.CompleteCertificateRefs.Id)
+                {
+                    completeCertificateRefsHashDataInfoFound = true;
+                }
+                if (hashDataInfo.UriAttribute == "#" + unsignedSignatureProperties.CompleteRevocationRefs.Id)
+                {
+                    completeRevocationRefsHashDataInfoFound = true;
+                }
+            }
+            retVal = completeCertificateRefsHashDataInfoFound && completeRevocationRefsHashDataInfoFound;
 
-			return retVal;
-		}
+            return retVal;
+        }
 
-		private bool CheckHashDataInfosOfArchiveTimeStamp(TimeStamp timeStamp)
-		{
-			UnsignedSignatureProperties unsignedSignatureProperties;
-			SignedProperties signedProperties;
+        private bool CheckHashDataInfosOfArchiveTimeStamp(TimeStamp timeStamp)
+        {
+            UnsignedSignatureProperties unsignedSignatureProperties;
+            SignedProperties signedProperties;
 
-			bool allReferenceHashDataInfosFound = false;
+            bool allReferenceHashDataInfosFound = false;
             bool signedInfoHashDataInfoFound = false;
             bool signedPropertiesHashDataInfoFound = false;
             bool signatureValueHashDataInfoFound = false;
@@ -1781,133 +1782,133 @@ namespace Microsoft.Xades
             ArrayList refsOnlyTimeStampIds = new ArrayList();
             ArrayList archiveTimeStampIds = new ArrayList();
 
-			bool retVal = true;
+            bool retVal = true;
 
-			unsignedSignatureProperties = this.XadesObject.QualifyingProperties.UnsignedProperties.UnsignedSignatureProperties;
-			signedProperties = this.XadesObject.QualifyingProperties.SignedProperties;
+            unsignedSignatureProperties = this.XadesObject.QualifyingProperties.UnsignedProperties.UnsignedSignatureProperties;
+            signedProperties = this.XadesObject.QualifyingProperties.SignedProperties;
 
-			foreach (Reference reference in this.Signature.SignedInfo.References)
-			{
-				if (reference.Uri != "#" + signedProperties.Id)
-				{
-					referenceIds.Add(reference.Uri);
-				}
-			}
-			referenceIds.Sort();
-			foreach (TimeStamp signatureTimeStamp in unsignedSignatureProperties.SignatureTimeStampCollection)
-			{
-				signatureTimeStampIds.Add("#" + signatureTimeStamp.EncapsulatedTimeStamp.Id);
-			}
-			signatureTimeStampIds.Sort();
-			foreach (TimeStamp sigAndRefsTimeStamp in unsignedSignatureProperties.SigAndRefsTimeStampCollection)
-			{
-				sigAndRefsTimeStampIds.Add("#" + sigAndRefsTimeStamp.EncapsulatedTimeStamp.Id);
-			}
-			sigAndRefsTimeStampIds.Sort();
-			foreach (TimeStamp refsOnlyTimeStamp in unsignedSignatureProperties.RefsOnlyTimeStampCollection)
-			{
-				refsOnlyTimeStampIds.Add("#" + refsOnlyTimeStamp.EncapsulatedTimeStamp.Id);
-			}
-			refsOnlyTimeStampIds.Sort();
-			allOlderArchiveTimeStampsFound = false;
-			for (int archiveTimeStampCounter = 0; !allOlderArchiveTimeStampsFound && (archiveTimeStampCounter < unsignedSignatureProperties.ArchiveTimeStampCollection.Count); archiveTimeStampCounter++)
-			{
-				TimeStamp archiveTimeStamp = unsignedSignatureProperties.ArchiveTimeStampCollection[archiveTimeStampCounter];
-				if (archiveTimeStamp.EncapsulatedTimeStamp.Id == timeStamp.EncapsulatedTimeStamp.Id)
-				{
-					allOlderArchiveTimeStampsFound = true;
-				}
-				else
-				{
-					archiveTimeStampIds.Add("#" + archiveTimeStamp.EncapsulatedTimeStamp.Id);
-				}
-			}
+            foreach (Reference reference in this.Signature.SignedInfo.References)
+            {
+                if (reference.Uri != "#" + signedProperties.Id)
+                {
+                    referenceIds.Add(reference.Uri);
+                }
+            }
+            referenceIds.Sort();
+            foreach (TimeStamp signatureTimeStamp in unsignedSignatureProperties.SignatureTimeStampCollection)
+            {
+                signatureTimeStampIds.Add("#" + signatureTimeStamp.EncapsulatedTimeStamp.Id);
+            }
+            signatureTimeStampIds.Sort();
+            foreach (TimeStamp sigAndRefsTimeStamp in unsignedSignatureProperties.SigAndRefsTimeStampCollection)
+            {
+                sigAndRefsTimeStampIds.Add("#" + sigAndRefsTimeStamp.EncapsulatedTimeStamp.Id);
+            }
+            sigAndRefsTimeStampIds.Sort();
+            foreach (TimeStamp refsOnlyTimeStamp in unsignedSignatureProperties.RefsOnlyTimeStampCollection)
+            {
+                refsOnlyTimeStampIds.Add("#" + refsOnlyTimeStamp.EncapsulatedTimeStamp.Id);
+            }
+            refsOnlyTimeStampIds.Sort();
+            allOlderArchiveTimeStampsFound = false;
+            for (int archiveTimeStampCounter = 0; !allOlderArchiveTimeStampsFound && (archiveTimeStampCounter < unsignedSignatureProperties.ArchiveTimeStampCollection.Count); archiveTimeStampCounter++)
+            {
+                TimeStamp archiveTimeStamp = unsignedSignatureProperties.ArchiveTimeStampCollection[archiveTimeStampCounter];
+                if (archiveTimeStamp.EncapsulatedTimeStamp.Id == timeStamp.EncapsulatedTimeStamp.Id)
+                {
+                    allOlderArchiveTimeStampsFound = true;
+                }
+                else
+                {
+                    archiveTimeStampIds.Add("#" + archiveTimeStamp.EncapsulatedTimeStamp.Id);
+                }
+            }
 
-			archiveTimeStampIds.Sort();
-			foreach (HashDataInfo hashDataInfo in timeStamp.HashDataInfoCollection)
-			{
-				int index = referenceIds.BinarySearch(hashDataInfo.UriAttribute);
-				if (index >= 0)
-				{
-					referenceIds.RemoveAt(index);
-				}
-				if (hashDataInfo.UriAttribute == "#" + this.signedInfoIdBuffer)
-				{
-					signedInfoHashDataInfoFound = true;
-				}
-				if (hashDataInfo.UriAttribute == "#" + signedProperties.Id)
-				{
-					signedPropertiesHashDataInfoFound = true;
-				}
-				if (hashDataInfo.UriAttribute == "#" + this.signatureValueId)
-				{
-					signatureValueHashDataInfoFound = true;
-				}
-				index = signatureTimeStampIds.BinarySearch(hashDataInfo.UriAttribute);
-				if (index >= 0)
-				{
-					signatureTimeStampIds.RemoveAt(index);
-				}
-				if (hashDataInfo.UriAttribute == "#" + unsignedSignatureProperties.CompleteCertificateRefs.Id)
-				{
-					completeCertificateRefsHashDataInfoFound = true;
-				}
-				if (hashDataInfo.UriAttribute == "#" + unsignedSignatureProperties.CompleteRevocationRefs.Id)
-				{
-					completeRevocationRefsHashDataInfoFound = true;
-				}
-				if (hashDataInfo.UriAttribute == "#" + unsignedSignatureProperties.CertificateValues.Id)
-				{
-					certificatesValuesHashDataInfoFound = true;
-				}
-				if (hashDataInfo.UriAttribute == "#" + unsignedSignatureProperties.RevocationValues.Id)
-				{
-					revocationValuesHashDataInfoFound = true;
-				}
-				index = sigAndRefsTimeStampIds.BinarySearch(hashDataInfo.UriAttribute);
-				if (index >= 0)
-				{
-					sigAndRefsTimeStampIds.RemoveAt(index);
-				}
-				index = refsOnlyTimeStampIds.BinarySearch(hashDataInfo.UriAttribute);
-				if (index >= 0)
-				{
-					refsOnlyTimeStampIds.RemoveAt(index);
-				}
-				index = archiveTimeStampIds.BinarySearch(hashDataInfo.UriAttribute);
-				if (index >= 0)
-				{
-					archiveTimeStampIds.RemoveAt(index);
-				}
-			}
-			if (referenceIds.Count == 0)
-			{
-				allReferenceHashDataInfosFound = true;
-			}
-			if (signatureTimeStampIds.Count == 0)
-			{
-				allSignatureTimeStampHashDataInfosFound = true;
-			}
-			if (sigAndRefsTimeStampIds.Count == 0)
-			{
-				allSigAndRefsTimeStampHashDataInfosFound = true;
-			}
-			if (refsOnlyTimeStampIds.Count == 0)
-			{
-				allRefsOnlyTimeStampHashDataInfosFound = true;
-			}
-			if (archiveTimeStampIds.Count == 0)
-			{
-				allArchiveTimeStampHashDataInfosFound = true;
-			}
-			
+            archiveTimeStampIds.Sort();
+            foreach (HashDataInfo hashDataInfo in timeStamp.HashDataInfoCollection)
+            {
+                int index = referenceIds.BinarySearch(hashDataInfo.UriAttribute);
+                if (index >= 0)
+                {
+                    referenceIds.RemoveAt(index);
+                }
+                if (hashDataInfo.UriAttribute == "#" + this.signedInfoIdBuffer)
+                {
+                    signedInfoHashDataInfoFound = true;
+                }
+                if (hashDataInfo.UriAttribute == "#" + signedProperties.Id)
+                {
+                    signedPropertiesHashDataInfoFound = true;
+                }
+                if (hashDataInfo.UriAttribute == "#" + this.signatureValueId)
+                {
+                    signatureValueHashDataInfoFound = true;
+                }
+                index = signatureTimeStampIds.BinarySearch(hashDataInfo.UriAttribute);
+                if (index >= 0)
+                {
+                    signatureTimeStampIds.RemoveAt(index);
+                }
+                if (hashDataInfo.UriAttribute == "#" + unsignedSignatureProperties.CompleteCertificateRefs.Id)
+                {
+                    completeCertificateRefsHashDataInfoFound = true;
+                }
+                if (hashDataInfo.UriAttribute == "#" + unsignedSignatureProperties.CompleteRevocationRefs.Id)
+                {
+                    completeRevocationRefsHashDataInfoFound = true;
+                }
+                if (hashDataInfo.UriAttribute == "#" + unsignedSignatureProperties.CertificateValues.Id)
+                {
+                    certificatesValuesHashDataInfoFound = true;
+                }
+                if (hashDataInfo.UriAttribute == "#" + unsignedSignatureProperties.RevocationValues.Id)
+                {
+                    revocationValuesHashDataInfoFound = true;
+                }
+                index = sigAndRefsTimeStampIds.BinarySearch(hashDataInfo.UriAttribute);
+                if (index >= 0)
+                {
+                    sigAndRefsTimeStampIds.RemoveAt(index);
+                }
+                index = refsOnlyTimeStampIds.BinarySearch(hashDataInfo.UriAttribute);
+                if (index >= 0)
+                {
+                    refsOnlyTimeStampIds.RemoveAt(index);
+                }
+                index = archiveTimeStampIds.BinarySearch(hashDataInfo.UriAttribute);
+                if (index >= 0)
+                {
+                    archiveTimeStampIds.RemoveAt(index);
+                }
+            }
+            if (referenceIds.Count == 0)
+            {
+                allReferenceHashDataInfosFound = true;
+            }
+            if (signatureTimeStampIds.Count == 0)
+            {
+                allSignatureTimeStampHashDataInfosFound = true;
+            }
+            if (sigAndRefsTimeStampIds.Count == 0)
+            {
+                allSigAndRefsTimeStampHashDataInfosFound = true;
+            }
+            if (refsOnlyTimeStampIds.Count == 0)
+            {
+                allRefsOnlyTimeStampHashDataInfosFound = true;
+            }
+            if (archiveTimeStampIds.Count == 0)
+            {
+                allArchiveTimeStampHashDataInfosFound = true;
+            }
+
             retVal = allReferenceHashDataInfosFound && signedInfoHashDataInfoFound && signedPropertiesHashDataInfoFound &&
-				signatureValueHashDataInfoFound && allSignatureTimeStampHashDataInfosFound && completeCertificateRefsHashDataInfoFound &&
-				completeRevocationRefsHashDataInfoFound && certificatesValuesHashDataInfoFound && revocationValuesHashDataInfoFound &&
-				allSigAndRefsTimeStampHashDataInfosFound && allRefsOnlyTimeStampHashDataInfosFound && allArchiveTimeStampHashDataInfosFound;
+                signatureValueHashDataInfoFound && allSignatureTimeStampHashDataInfosFound && completeCertificateRefsHashDataInfoFound &&
+                completeRevocationRefsHashDataInfoFound && certificatesValuesHashDataInfoFound && revocationValuesHashDataInfoFound &&
+                allSigAndRefsTimeStampHashDataInfosFound && allRefsOnlyTimeStampHashDataInfosFound && allArchiveTimeStampHashDataInfosFound;
 
-			return retVal;
-		}
-		#endregion
-	}
+            return retVal;
+        }
+        #endregion
+    }
 }
