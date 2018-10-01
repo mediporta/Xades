@@ -4,6 +4,8 @@
     <TargetFrameworks>net46;netstandard2.0</TargetFrameworks>
     <Company>Microsoft France</Company>
     <Product>XAdES Starter Kit</Product>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Description>Refreshed Xades Kit from Microsoft France via MStachyra</Description>
   </PropertyGroup>
 
   <!-- .NET Standard 2.0 references, compilation flags and build options -->
