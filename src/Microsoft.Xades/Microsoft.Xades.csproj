@@ -6,6 +6,7 @@
     <Product>XAdES Starter Kit</Product>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Description>Refreshed Xades Kit from Microsoft France via MStachyra</Description>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <!-- .NET Standard 2.0 references, compilation flags and build options -->
