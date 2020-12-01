@@ -1,12 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net46;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>net47;netstandard2.0</TargetFrameworks>
     <Company>Microsoft France</Company>
     <Product>XAdES Starter Kit</Product>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Description>Refreshed Xades Kit from Microsoft France via MStachyra</Description>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
   </PropertyGroup>
 
   <!-- .NET Standard 2.0 references, compilation flags and build options -->
@@ -18,8 +18,8 @@
   </ItemGroup>
 
 
-  <!-- .NET 4.6 references, compilation flags and build options -->
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net46' ">
+  <!-- .NET 4.7 references, compilation flags and build options -->
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net47' ">
     <Reference Include="mscorlib" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -31,8 +31,8 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
   </ItemGroup>
-  <PropertyGroup Condition=" '$(TargetFramework)' == 'net46'">
-    <DefineConstants>NET46;NETFULL</DefineConstants>
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'net47'">
+    <DefineConstants>NET47;NETFULL</DefineConstants>
   </PropertyGroup>
 
 </Project>

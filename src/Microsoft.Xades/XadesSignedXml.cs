@@ -142,7 +142,10 @@ namespace Microsoft.Xades
         /// The XAdES XML namespace URI
         /// </summary>
         public const string XadesNamespaceUri = "http://uri.etsi.org/01903/v1.3.2#";
-        
+
+
+        public const string Xades141NamespaceUri = "http://uri.etsi.org/01903/v1.4.1#";
+
         /// <summary>
         /// Mandated type name for the Uri reference to the SignedProperties element
         /// </summary>
@@ -392,8 +395,20 @@ namespace Microsoft.Xades
             if (idValue == this.signedPropertiesIdBuffer)
             {
                 var xmlDocumentCloned = new XmlDocument();
-                xmlDocumentCloned.LoadXml(xmlDocument.OuterXml);
-                xmlDocumentCloned.DocumentElement.AppendChild(xmlDocumentCloned.ImportNode(cachedXadesObjectDocument.DocumentElement, true));
+
+                if (xmlDocument == null)
+                {
+                    xmlDocumentCloned.LoadXml("<Root></Root>"); // Add this to force signature with namespaces
+                    xmlDocumentCloned.DocumentElement.AppendChild(
+                        xmlDocumentCloned.ImportNode(cachedXadesObjectDocument.DocumentElement, true));
+                }
+                else
+                {
+                    xmlDocumentCloned.LoadXml(xmlDocument.OuterXml);
+                    xmlDocumentCloned.DocumentElement.AppendChild(
+                        xmlDocumentCloned.ImportNode(cachedXadesObjectDocument.DocumentElement, true));
+                }
+
 
                 retVal = base.GetIdElement(xmlDocumentCloned, idValue);
                 if (retVal != null)
@@ -464,7 +479,10 @@ namespace Microsoft.Xades
         /// </summary>
         /// <param name="xadesObject">XAdES object to add to signature</param>
         /// <param name="transform">Extra transform if needed</param>
-        public void AddXadesObject(XadesObject xadesObject, System.Security.Cryptography.Xml.Transform transform = null)
+        public void AddXadesObject(XadesObject xadesObject,
+            System.Security.Cryptography.Xml.Transform transform = null,
+            string digestMethod = null,
+            string signedPropertiesType = SignedPropertiesType)
         {
             Reference reference;
             DataObject dataObject;
@@ -480,7 +498,12 @@ namespace Microsoft.Xades
                 reference = new Reference();
                 signedPropertiesIdBuffer = xadesObject.QualifyingProperties.SignedProperties.Id;
                 reference.Uri = "#" + signedPropertiesIdBuffer;
-                reference.Type = SignedPropertiesType;
+                reference.Type = signedPropertiesType;
+
+                if (digestMethod != null)
+                {
+                    reference.DigestMethod = digestMethod;
+                }
 
                 // Add extra transform
                 if (transform != null)
@@ -1355,6 +1378,8 @@ namespace Microsoft.Xades
         /// </summary>
         private void BuildDigestedReferences()
         {
+            // https://referencesource.microsoft.com/#System.Security/system/security/cryptography/xml/signedxml.cs,f7e7a0baf9e6151f,references
+
             ArrayList references = this.SignedInfo.References;
 
             //this.m_refProcessed = new bool[references.Count];
@@ -1391,7 +1416,7 @@ namespace Microsoft.Xades
             //CanonicalXmlNodeList refList = new CanonicalXmlNodeList();
             Type CanonicalXmlNodeList_Type = System_Security_Assembly.GetType("System.Security.Cryptography.Xml.CanonicalXmlNodeList");
             ConstructorInfo CanonicalXmlNodeList_Constructor = CanonicalXmlNodeList_Type.GetConstructor(BindingFlags.NonPublic | BindingFlags.Instance, null, new Type[] { }, null);
-            Object refList = CanonicalXmlNodeList_Constructor.Invoke(null);
+            Object nodeList = CanonicalXmlNodeList_Constructor.Invoke(null);
             //
 
             //
@@ -1400,10 +1425,10 @@ namespace Microsoft.Xades
 
             foreach (DataObject obj2 in this.m_signature.ObjectList)
             {
-                //refList.Add(obj2.GetXml());
+                //nodeList.Add(obj.GetXml());
                 XmlElement xml = obj2.GetXml();
                 SetPrefix("ds", xml); // <---
-                CanonicalXmlNodeList_Add.Invoke(refList, new object[] { xml });
+                CanonicalXmlNodeList_Add.Invoke(nodeList, new object[] { xml });
                 //
             }
 
@@ -1421,7 +1446,7 @@ namespace Microsoft.Xades
                 }
                 //reference2.UpdateHashValue(this.m_containingDocument, refList);
                 object m_containingDocument = SignedXml_m_containingDocument.GetValue(this);
-                Reference_UpdateHashValue.Invoke(reference2, new object[] { m_containingDocument, refList });
+                Reference_UpdateHashValue.Invoke(reference2, new object[] { m_containingDocument, nodeList });
                 // 
 
                 if (reference2.Id != null)
@@ -1429,7 +1454,7 @@ namespace Microsoft.Xades
                     //refList.Add(reference2.GetXml());
                     XmlElement xml = reference2.GetXml();
                     SetPrefix("ds", xml); // <---
-                    CanonicalXmlNodeList_Add.Invoke(refList, new object[] { xml });
+                    CanonicalXmlNodeList_Add.Invoke(nodeList, new object[] { xml });
                     //
                 }
             }
@@ -1538,6 +1563,7 @@ namespace Microsoft.Xades
 
             XmlNamespaceManager xmlNamespaceManager = new XmlNamespaceManager(signatureElement.OwnerDocument.NameTable); //Create an XmlNamespaceManager to resolve namespace
             xmlNamespaceManager.AddNamespace("ds", SignedXml.XmlDsigNamespaceUrl);
+            xmlNamespaceManager.AddNamespace("xsd", XadesSignedXml.XadesNamespaceUri);
             xmlNamespaceManager.AddNamespace("xsd", XadesSignedXml.XadesNamespaceUri);
 
             XmlNodeList xmlNodeList = signatureElement.SelectNodes("ds:Object/xsd:QualifyingProperties", xmlNamespaceManager);

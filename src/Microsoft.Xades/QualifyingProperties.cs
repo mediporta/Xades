@@ -204,6 +204,10 @@ namespace Microsoft.Xades
 
 			creationXmlDocument = new XmlDocument();
             retVal = creationXmlDocument.CreateElement("xades", "QualifyingProperties", XadesSignedXml.XadesNamespaceUri);
+
+			// Just Add Xades141 Namespace
+            retVal.SetAttribute("xmlns:xades141", XadesSignedXml.Xades141NamespaceUri);
+
             if (!String.IsNullOrEmpty(this.id))
 			{
 				retVal.SetAttribute("Id", this.id);
